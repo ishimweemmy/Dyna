@@ -15,7 +15,7 @@ function InputField(props: {
     props;
 
   return (
-    <div className={`${extra}`}>
+    <div className={`w-full ${extra}`}>
       <label
         htmlFor={id}
         className={`text-sm text-navy-700 dark:text-white ${

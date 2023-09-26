@@ -18,6 +18,7 @@ import {
   MdPerson,
   MdLock,
 } from "react-icons/md";
+import Register from "./views/auth/Register";
 
 const routes = [
   {
@@ -55,6 +56,13 @@ const routes = [
     path: "sign-in",
     icon: <MdLock className="h-6 w-6" />,
     component: <SignIn />,
+  },
+  {
+    name: "Register",
+    layout: "/auth",
+    path: "register",
+    icon: <MdLock className="h-6 w-6" />,
+    component: <Register />,
   },
   {
     name: "RTL Admin",
