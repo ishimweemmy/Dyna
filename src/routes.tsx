@@ -1,14 +1,8 @@
-import React from "react";
-
-// Admin Imports
 import MainDashboard from "src/views/admin/default";
 import NFTMarketplace from "src/views/admin/marketplace";
 import Profile from "src/views/admin/profile";
 import DataTables from "src/views/admin/tables";
 import RTLDefault from "src/views/rtl/default";
-
-// Auth Imports
-import SignIn from "src/views/auth/SignIn";
 
 // Icon Imports
 import {
@@ -16,13 +10,11 @@ import {
   MdOutlineShoppingCart,
   MdBarChart,
   MdPerson,
-  MdLock,
 } from "react-icons/md";
-import Register from "./views/auth/Register";
 
 const routes = [
   {
-    name: "Main Dashboard",
+    name: "Home",
     layout: "/admin",
     path: "default",
     icon: <MdHome className="h-6 w-6" />,
@@ -51,25 +43,12 @@ const routes = [
     component: <Profile />,
   },
   {
-    name: "Sign In",
-    layout: "/auth",
-    path: "sign-in",
-    icon: <MdLock className="h-6 w-6" />,
-    component: <SignIn />,
-  },
-  {
-    name: "Register",
-    layout: "/auth",
-    path: "register",
-    icon: <MdLock className="h-6 w-6" />,
-    component: <Register />,
-  },
-  {
     name: "RTL Admin",
     layout: "/rtl",
     path: "rtl",
     icon: <MdHome className="h-6 w-6" />,
     component: <RTLDefault />,
   },
+
 ];
 export default routes;

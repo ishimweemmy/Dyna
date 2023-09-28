@@ -138,7 +138,7 @@ export default {
       white: "#ffffff",
       lightPrimary: "#F4F7FE",
       blueSecondary: "#4318FF",
-      brandLinear: "#868CFF",
+      brandLinear: "#FF86C4",
       gray: {
         50: "#f8f9fa",
         100: "#edf2f7",
@@ -295,7 +295,7 @@ export default {
         800: "#6b21a8",
         900: "#581c87",
       },
-      pink: {
+      brand: {
         50: "#fdf2f8",
         100: "#fce7f3",
         200: "#fbcfe8",
@@ -307,7 +307,7 @@ export default {
         800: "#9d174d",
         900: "#831843",
       },
-      brand: {
+      blueBrand: {
         50: "#E9E3FF",
         100: "#C0B8FE",
         200: "#A195FD",

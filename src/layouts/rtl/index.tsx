@@ -8,7 +8,7 @@ import routes from "src/routes";
 export default function RTL() {
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
-  const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const [currentRoute, setCurrentRoute] = React.useState("Home");
 
   React.useEffect(() => {
     window.addEventListener("resize", () =>
