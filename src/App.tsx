@@ -6,6 +6,7 @@ import AuthLayout from "src/layouts/auth";
 import Register from "./views/auth/Register";
 import SignIn from "./views/auth/SignIn";
 import ResetPassword from "./views/auth/ResetPassword";
+import EmailConfirm from "./views/auth/EmailConfirm";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="register" element={<Register />} />
         <Route path="sign-in" element={<SignIn /> } />
         <Route path="reset-password" element={<ResetPassword /> } />
+        <Route path="confirm-password" element={<EmailConfirm /> } />
       </Route>
       <Route path="admin/*" element={<AdminLayout />} />
       <Route path="rtl/*" element={<RtlLayout />} />
