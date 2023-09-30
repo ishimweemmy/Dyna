@@ -1,18 +1,22 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper/modules'
+import { Autoplay } from 'swiper/modules'
 import { MdArrowDropUp } from 'react-icons/md';
+import sheetsImg from 'src/assets/img/dashboards/sheets.png'
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import LineChart from 'src/components/charts/LineChart';
+import BarChart from 'src/components/charts/BarChart'
+import { barChartDataWeeklyRevenue, barChartOptionsWeeklyRevenue, lineChartDataTotalSpent, lineChartOptionsTotalSpent } from 'src/variables/charts';
 
 const WeeklySales = () => {
   return (
     <div className="w-full ">
-        <Swiper spaceBetween={20} modules={[Pagination]} pagination={{ clickable: true }}>
-            <SwiperSlide className='w-full flex bg-brand-500 rounded-lg p-4 text-white'>
-                <div className='w-full flex flex-col items-start justify-center gap-6 '>
+        <Swiper spaceBetween={10} modules={[Autoplay]} slidesPerGroup={1} pagination={{ clickable: true }} autoplay loop aria-disabled={false}>
+            <SwiperSlide className='w-full !flex bg-brand-500 rounded-lg p-4 text-white'>
+                <div className='w-3/5 flex flex-col items-start justify-center gap-6 '>
                     <section className='flex flex-col items-start justify-center gap-2'>
                         <span className='text-xl font-bold'>Weekly Sales</span>
                         <div className="flex items-center justify-center gap-2">
@@ -24,7 +28,7 @@ const WeeklySales = () => {
                         </div>
                     </section>
                     <span className='font-bold'>Hardware store</span>
-                    <ul className='w-1/2 grid grid-cols-2 justify-items-start gap-2 gap-y-6'>
+                    <ul className='w-full grid grid-cols-2 justify-items-start gap-2 gap-y-6'>
                         <li className='flex items-center justify-center gap-2 text-base'>
                             <p className='bg-[#ffffff35] rounded-lg p-1 px-4'>16</p>
                             <p>TV's</p>
@@ -43,12 +47,16 @@ const WeeklySales = () => {
                         </li>
                     </ul>
                 </div>
-                <div className=''>
-                    
+                <div className='w-full flex items-center justify-center gap-8 '>
+                    <LineChart
+                        chartOptions={lineChartOptionsTotalSpent}
+                        chartData={lineChartDataTotalSpent}
+                    />
+                    <img src={sheetsImg} alt="" className='w-1/4 mt-8' />
                 </div>
             </SwiperSlide>
-            <SwiperSlide className='w-full flex bg-brand-500 rounded-lg p-4 text-white'>
-                <div className='w-full flex flex-col items-start justify-center gap-6 '>
+            <SwiperSlide className='w-full !flex bg-brand-500 rounded-lg p-4 text-white'>
+                <div className='w-3/5 flex flex-col items-start justify-center gap-6 '>
                     <section className='flex flex-col items-start justify-center gap-2'>
                         <span className='text-xl font-bold'>Weekly Sales</span>
                         <div className="flex items-center justify-center gap-2">
@@ -60,7 +68,7 @@ const WeeklySales = () => {
                         </div>
                     </section>
                     <span className='font-bold'>Hardware store</span>
-                    <ul className='w-1/2 grid grid-cols-2 justify-items-start gap-2 gap-y-6'>
+                    <ul className='w-full grid grid-cols-2 justify-items-start gap-2 gap-y-6'>
                         <li className='flex items-center justify-center gap-2 text-base'>
                             <p className='bg-[#ffffff35] rounded-lg p-1 px-4'>16</p>
                             <p>TV's</p>
@@ -79,8 +87,12 @@ const WeeklySales = () => {
                         </li>
                     </ul>
                 </div>
-                <div className=''>
-                    
+                <div className='w-full flex items-center justify-center gap-8 '>
+                    <BarChart
+                        chartData={barChartDataWeeklyRevenue}
+                        chartOptions={barChartOptionsWeeklyRevenue}
+                    />
+                    <img src={sheetsImg} alt="" className='w-1/4 mt-8' />
                 </div>
             </SwiperSlide>
         </Swiper>

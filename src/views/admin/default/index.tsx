@@ -16,8 +16,9 @@ import tableDataComplex from "./variables/tableDataComplex";
 import SalesOverview from "./components/SalesOverview";
 import Ratings from "./components/Ratings";
 import Sessions from "./components/Sessions";
-import { Swiper, SwiperSlide } from 'swiper/react'
 import WeeklySales from "./components/WeeklySales";
+import TotalVisitors from "./components/TotalVisits";
+import LiveVisitors from "./components/LiveVisitors";
 
 
 const Dashboard = () => {
@@ -27,10 +28,10 @@ const Dashboard = () => {
       <Ratings />
       <Sessions />
       <WeeklySales />
-      {/* <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <TotalSpent />
-        <WeeklyRevenue />
-      </div> */}
+      <TotalVisitors />
+      <LiveVisitors />
+        {/* <TotalSpent />
+        <WeeklyRevenue /> */}
     </div>
   );
 };
