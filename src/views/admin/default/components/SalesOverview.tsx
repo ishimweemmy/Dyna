@@ -18,7 +18,7 @@ const SalesOverview = () => {
             <div className="flex items-center justify-center">
               <p className="text-sm font-bold text-green-500"> +2.45% </p>
               <MdArrowDropUp className="font-medium text-green-500" />
-            </div>
+            </div>DF
           </div>
         </section>
         <div className='relative cursor-pointer'>
