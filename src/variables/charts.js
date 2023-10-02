@@ -125,7 +125,7 @@ export const pieChartOptions = {
   hover: { mode: null },
   plotOptions: {
     pie: {
-      // size: 500
+      customScale: 1.2
     },
     donut: {
       expandOnClick: false,
@@ -177,7 +177,6 @@ export const barChartOptionsWeeklyRevenue = {
       show: false,
     },
   },
-  // colors:['#ff3322','#faf']
   tooltip: {
     style: {
       fontSize: "12px",
