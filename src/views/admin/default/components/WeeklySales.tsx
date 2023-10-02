@@ -13,7 +13,7 @@ import { barChartDataWeeklyRevenue, barChartOptionsWeeklyRevenue, lineChartDataT
 
 const WeeklySales = () => {
   return (
-    <div className="w-full ">
+    <div className="w-full col-span-2 ">
         <Swiper spaceBetween={10} modules={[Autoplay]} slidesPerGroup={1} pagination={{ clickable: true }} autoplay loop aria-disabled={false}>
             <SwiperSlide className='w-full !flex bg-brand-500 rounded-lg p-4 text-white'>
                 <div className='w-3/5 flex flex-col items-start justify-center gap-6 '>

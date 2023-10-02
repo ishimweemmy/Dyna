@@ -31,7 +31,7 @@ export const barChartOptionsDailyTraffic = {
     labels: {
       show: true,
       style: {
-        colors: "#A3AED0",
+        colors: "#66CDAA",
         fontSize: "14px",
         fontWeight: "500",
       },
@@ -79,7 +79,7 @@ export const barChartOptionsDailyTraffic = {
         [
           {
             offset: 0,
-            color: "#4318FF",
+            color: "#ADD8E6",
             opacity: 1,
           },
           {
@@ -103,10 +103,11 @@ export const barChartOptionsDailyTraffic = {
 };
 
 export const pieChartOptions = {
-  labels: ["Your files", "System", "Empty"],
-  colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+  labels: ["Group A", "Group B", "Group C", "Group D" ],
+  colors: ["#6AD2FAD9", "#9370DB", "#EFF4FB", "#ff0080"],
   chart: {
-    width: "50px",
+    width: "100px",
+    type: "donut"
   },
   states: {
     hover: {
@@ -119,21 +120,24 @@ export const pieChartOptions = {
     show: false,
   },
   dataLabels: {
-    enabled: false,
+    enabled: true,
   },
   hover: { mode: null },
   plotOptions: {
+    pie: {
+      // size: 500
+    },
     donut: {
       expandOnClick: false,
       donut: {
         labels: {
-          show: false,
+          show: true,
         },
       },
     },
   },
   fill: {
-    colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+    colors: ["#6AD2FAD9", "#9370DB", "#EFF4FB", "#ff0080"],
   },
   tooltip: {
     enabled: true,
@@ -146,7 +150,7 @@ export const pieChartOptions = {
   },
 };
 
-export const pieChartData = [63, 25, 12];
+export const pieChartData = [30, 30, 30, 10];
 
 export const barChartDataWeeklyRevenue = [
   {
@@ -157,7 +161,7 @@ export const barChartDataWeeklyRevenue = [
   {
     name: "PRODUCT B",
     data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
-    color: "#4318FF",
+    color: "#ADD8E6",
   },
   {
     name: "PRODUCT C",
@@ -194,7 +198,7 @@ export const barChartOptionsWeeklyRevenue = {
     labels: {
       show: true,
       style: {
-        colors: "#A3AED0",
+        colors: "#66CDAA",
         fontSize: "14px",
         fontWeight: "500",
       },
@@ -212,7 +216,7 @@ export const barChartOptionsWeeklyRevenue = {
     labels: {
       show: false,
       style: {
-        colors: "#A3AED0",
+        colors: "#66CDAA",
         fontSize: "14px",
         fontWeight: "500",
       },
@@ -239,12 +243,12 @@ export const barChartOptionsWeeklyRevenue = {
   },
   fill: {
     type: "solid",
-    colors: ["#5E37FF", "#6AD2FF", "#E1E9F8"],
+    colors: ["#5E37FF", "#9370DB", "#E1E9F8"],
   },
   legend: {
     show: false,
   },
-  colors: ["#5E37FF", "#6AD2FF", "#E1E9F8"],
+  colors: ["#5E37FF", "#9370DB", "#E1E9F8"],
   dataLabels: {
     enabled: false,
   },
@@ -260,12 +264,12 @@ export const lineChartDataTotalSpent = [
   {
     name: "Revenue",
     data: [50, 64, 48, 66, 49, 68],
-    color: "#4318FF",
+    color: "#ADD8E6",
   },
   {
     name: "Profit",
     data: [30, 40, 24, 46, 20, 46],
-    color: "#6AD2FF",
+    color: "#9370DB",
   },
 ];
 
@@ -315,7 +319,7 @@ export const lineChartOptionsTotalSpent = {
     },
     labels: {
       style: {
-        colors: "#A3AED0",
+        colors: "#66CDAA",
         fontSize: "12px",
         fontWeight: "500",
       },

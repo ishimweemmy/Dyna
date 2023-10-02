@@ -9,7 +9,7 @@ const SalesOverview = () => {
   const [tooltipVisible, setToolTipVisible] = useState(false)
 
   return (
-    <Card extra=''>
+    <Card extra='col-span-2'>
       <div className='w-full p-4 flex items-center justify-between gap-2'>
         <section className='flex flex-col items-start justify-center gap-2'>
           <span className='text-xl font-bold text-navy-700 dark:text-white'>Sales Overview</span>
@@ -18,7 +18,7 @@ const SalesOverview = () => {
             <div className="flex items-center justify-center">
               <p className="text-sm font-bold text-green-500"> +2.45% </p>
               <MdArrowDropUp className="font-medium text-green-500" />
-            </div>DF
+            </div>
           </div>
         </section>
         <div className='relative cursor-pointer'>
