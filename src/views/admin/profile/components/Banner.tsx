@@ -5,7 +5,7 @@ import General from "./General";
 
 const Banner = () => {
   return (
-    <Card extra={"items-center w-full h-full p-[16px]"}>
+    <Card extra={"items-center w-full h-fit p-[16px] "}>
       {/* Background and profile */}
       <div
         className="relative mt-1 flex h-44 w-full justify-center rounded-xl bg-cover"

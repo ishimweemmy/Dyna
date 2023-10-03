@@ -24,7 +24,7 @@ const General = () => {
     },
     {
       name: "Address",
-      value: "kigali__and__other__stuffs:lol:"
+      value: "kigali__and__other__stuffs"
     }
   ])
 
