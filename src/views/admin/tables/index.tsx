@@ -5,7 +5,7 @@ import tableDataColumns from "./variables/tableDataColumns";
 import tableDataComplex from "./variables/tableDataComplex";
 import DevelopmentTable from "./components/DevelopmentTable";
 import ColumnsTable from "./components/ColumnsTable";
-import ComplexTable from "./components/ComplexTable";
+import ComplexTable from "./components/OrdersTable";
 
 const Tables = () => {
   return (

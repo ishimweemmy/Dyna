@@ -31,22 +31,22 @@ const SalesOverview = () => {
       </div>
       <div className='w-full flex justify-between px-2'>
         <Widget
-          icon={<FaUser className="h-6 w-6" />}
+          icon={<FaUser className="h-4 w-4" />}
           title={"New Customers"}
           subtitle={"340"}
         />
         <Widget
-          icon={<MdBarChart className="h-7 w-7" />}
+          icon={<MdBarChart className="h-4 w-4" />}
           title={"Total Profit"}
           subtitle={"$574.34"}
         />
         <Widget
-          icon={<AiOutlineTransaction className="h-6 w-6" />}
+          icon={<AiOutlineTransaction className="h-4 w-4" />}
           title={"New Transactions"}
           subtitle={"150k"}
         />
         <Widget
-          icon={<MdDeliveryDining className="h-6 w-6" />}
+          icon={<MdDeliveryDining className="h-4 w-4" />}
           title={"Deliveries Completed"}
           subtitle={"100"}
         />

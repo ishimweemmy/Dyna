@@ -13,7 +13,7 @@ const LiveVisitors = () => {
             <span className='rounded-md bg-yellow-100 grid justify-items-center p-1'>
               <BsPhone className='text-sm  text-yellow-500' />
             </span>
-            <span className=''>Mobile</span>
+            <span className='text-sm mt-3'>Mobile</span>
           </div>
           <div className='flex flex-col items-start justify-center'>
             <span className='text-xl font-semibold'>20%</span>
@@ -33,7 +33,7 @@ const LiveVisitors = () => {
               <span className='rounded-md bg-brand-100 grid justify-items-center p-1'>
                 <MdComputer className='text-sm  text-brand-500' />
               </span>
-              <span className=''>Desktop</span>
+              <span className='text-sm'>Desktop</span>
             </div>
             <div className='flex flex-col items-start justify-center'>
               <span className='text-xl font-semibold'>80%</span>

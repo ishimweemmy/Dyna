@@ -16,6 +16,7 @@ export default function Admin(props: { [x: string]: any }) {
       window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
     );
   }, []);
+
   React.useEffect(() => {
     getActiveRoute(routes);
   }, [location.pathname]);
@@ -33,6 +34,7 @@ export default function Admin(props: { [x: string]: any }) {
     }
     return activeRoute;
   };
+
   const getActiveNavbar = (routes: RoutesType[]): string | boolean => {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {
@@ -44,6 +46,7 @@ export default function Admin(props: { [x: string]: any }) {
     }
     return activeNavbar;
   };
+
   const getRoutes = (routes: RoutesType[]): any => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -57,6 +60,7 @@ export default function Admin(props: { [x: string]: any }) {
   };
 
   document.documentElement.dir = "ltr";
+  
   return (
     <div className="flex h-full w-full">
       <Sidebar open={open} onClose={() => setOpen(false)} />
@@ -64,7 +68,7 @@ export default function Admin(props: { [x: string]: any }) {
       <div className="h-full w-full bg-lightPrimary dark:!bg-navy-900">
         {/* Main Content */}
         <main
-          className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}
+          className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[250px]`}
         >
           {/* Routes */}
           <div className="h-full">
