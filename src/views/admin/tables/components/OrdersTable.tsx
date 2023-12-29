@@ -1,7 +1,6 @@
 import React from "react";
 import CardMenu from "src/components/card/CardMenu";
 import Card from "src/components/card";
-import Progress from "src/components/progress";
 import { MdCancel, MdCheckCircle, MdRefresh } from "react-icons/md";
 
 import {
@@ -13,8 +12,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import Checkbox from "src/components/checkbox";
-import PopoverDyna from "src/components/popover";
 import Order from "../../orders/components/Order";
+import { orderProductsData } from "../variables/tableDataOrder";
 
 type RowObj = {
   id: string;
@@ -40,12 +39,12 @@ export default function OrdersTable(props: { tableData: any }) {
       cell: (info: any) => (
         <div className="flex items-center">
           <Checkbox
-            defaultChecked={info.getValue()[1]}
+            defaultChecked={false}
             colorScheme="brandScheme"
             me="10px"
           />
           <p className="ml-3 text-sm font-bold text-navy-700 dark:text-white">
-            {info.getValue()[0]}
+            {info.getValue()}
           </p>
         </div>
       ),
@@ -110,7 +109,7 @@ export default function OrdersTable(props: { tableData: any }) {
       ),
     }),
     columnHelper.accessor("id", {
-      id: "id",
+      id: "action",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           TAKE ACTION
@@ -118,7 +117,7 @@ export default function OrdersTable(props: { tableData: any }) {
       ),
       cell: (info: any) => (
         <div className="flex items-center">
-         <Order orderId={info.getValue()} />
+         <Order orderId={info.getValue()} tableData={orderProductsData} />
         </div>
       ),
     }),
@@ -179,7 +178,7 @@ export default function OrdersTable(props: { tableData: any }) {
           <tbody>
             {table
               .getRowModel()
-              .rows.slice(0, 5)
+              .rows
               .map((row) => {
                 return (
                   <tr key={row.id}>

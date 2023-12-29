@@ -1,5 +1,3 @@
-import React from "react";
-import tableDataComplex from "../tables/variables/tableDataComplex";
 import OrdersTable from "../tables/components/OrdersTable";
 import { ordersData } from "../tables/variables/tableDataOrder";
 
