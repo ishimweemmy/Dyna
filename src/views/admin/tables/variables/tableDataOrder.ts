@@ -121,3 +121,75 @@ export const orderProductsData = [
     revenue: 50.0,
   }
 ];
+
+export const productsData = [
+  {
+    id: "1",
+    date: "2024-01-05",
+    status: "in_stock",
+    units: 50,
+    productName: "Elegant Chair",
+    revenue: 1000,
+    images: [
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+    ],
+    currency: "frw",
+    category: "Electronics"
+  },
+  {
+    id: "2",
+    date: "2024-01-06",
+    status: "out_of_stock",
+    units: 0,
+    productName: "Door Handle Set",
+    revenue: 20000,
+    images: ["https://picsum.photos/200", "https://picsum.photos/200", "https://picsum.photos/200"],
+    currency: "frw",
+    category: "Electronics"
+  },
+  {
+    id: "3",
+    date: "2024-01-07",
+    status: "in_stock",
+    units: 30,
+    productName: "Fire Extinguisher ABC",
+    revenue: 600,
+    images: [
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+    ],
+    currency: "frw",
+    category: "Electronics"
+  },
+  {
+    id: "4",
+    date: "2024-01-08",
+    status: "in_stock",
+    units: 15,
+    productName: "Modern Table Lamp",
+    revenue: 300,
+    images: ["https://picsum.photos/200", "https://picsum.photos/200", "https://picsum.photos/200"],
+    currency: "frw",
+    category: "Electronics"
+  },
+  {
+    id: "5",
+    date: "2024-01-09",
+    status: "out_of_stock",
+    units: 0,
+    productName: "Brass Cabinet Knob",
+    revenue: 3000,
+    images: ["https://picsum.photos/200", "https://picsum.photos/200", "https://picsum.photos/200"],
+    currency: "frw",
+    category: "Electronics"
+  },
+];
+

@@ -1,6 +1,5 @@
 import MainDashboard from "src/views/admin/default";
 import Profile from "src/views/admin/profile";
-import DataTables from "src/views/admin/tables";
 
 // Icon Imports
 import {
@@ -8,7 +7,8 @@ import {
   MdPerson,
 } from "react-icons/md";
 import Orders from "./views/admin/orders";
-import { FaJediOrder } from "react-icons/fa";
+import { FaJediOrder, FaProductHunt } from "react-icons/fa";
+import Products from "./views/admin/products";
 
 const routes = [
   {
@@ -29,8 +29,15 @@ const routes = [
     name: "Orders",
     layout: "/admin",
     path: "orders",
-    icon: <FaJediOrder className="h-6 w-6" />,
+    icon: <FaJediOrder className="h-5 w-5" />,
     component: <Orders />,
   },
+  {
+    name: "Products",
+    layout: "/admin",
+    path: "products",
+    icon: <FaProductHunt className="h-5 w-5" />,
+    component: <Products />,
+  }
 ];
 export default routes;

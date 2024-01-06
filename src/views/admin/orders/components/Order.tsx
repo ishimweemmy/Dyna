@@ -34,7 +34,7 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
     columnHelper.accessor("image", {
       id: "image",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">Product</p>
+        <p className="text-sm font-bold text-gray-600 ">Product</p>
       ),
       cell: (info: any) => (
         <div className="flex items-center">
@@ -45,10 +45,10 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
     columnHelper.accessor("name", {
       id: "name",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">Product Name</p>
+        <p className="text-sm font-bold text-gray-600 ">Product Name</p>
         ),
         cell: (info) => (
-          <p className="text-sm font-bold text-navy-700 dark:text-white flex flex-col items-start justify-center gap-1 whitespace-nowrap">
+          <p className="text-sm font-bold text-navy-700  flex flex-col items-start justify-center gap-1 whitespace-nowrap">
             <span>{info.getValue()}</span>
             <span className="font-normal text-black/50">frw {info.row.getValue("revenue")} * {info.row.getValue("units")}</span>
           </p>
@@ -57,12 +57,12 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
     columnHelper.accessor("revenue", {
       id: "revenue",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          Price
+        <p className="text-sm font-bold text-gray-600 ">
+          Price on unit
         </p>
       ),
       cell: (info) => (
-        <p className="text-sm text-navy-700 font-normal dark:text-white">
+        <p className="text-sm text-navy-700 font-normal ">
           frw {info.getValue()}
         </p>
       ),
@@ -86,6 +86,8 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
     debugTable: true,
   });
 
+  const [orderStatus, setOrderStatus] = useState("Delivered")
+
   return (
     <div>
       <button
@@ -96,16 +98,18 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
       </button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent className="w-full p-5 px-10 flex flex-col items-start justify-center gap-4" maxWidth={600}>
+        <ModalContent className="w-full py-8 px-10 flex flex-col items-start justify-center gap-4" maxWidth={600}>
           <div className="w-full flex items-center justify-between border-b py-3">
             <span className="font-bold text-black/50">Order Details</span>
-            <MdClose />
+            <MdClose onClick={onClose} className="cursor-pointer" />
           </div>
-          <div className="flex flex-col items-center justify-start text-base gap-2">
+          <div className="flex flex-col items-start justify-center text-base gap-2">
             <span className="">Order no.<b className="text-brand-500 font-normal text-sm">{orderId}</b> from <b className="text-brand-500 font-normal text-sm">23.02.2021</b></span>
             <span className="">Billing name: <b className="text-brand-500 font-normal text-sm">Neal Matthews</b></span>
+            <span className="">order status: <input type="text" className="text-brand-500 font-normal text-sm p-2 focus:outline-gray-500 ml-2" value={orderStatus} onChange={(e) => setOrderStatus(e.target.value)} /></span>
+            {/* <input type="" /> */}
           </div>
-          <div className="w-full flex items-center justify-center">
+          <div className="w-full flex flex-col items-center justify-center">
             <table className="w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -159,7 +163,22 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
                   })}
               </tbody>
             </table>
+            <div className="w-full flex flex-col text-navy-700 text-sm">
+              <div className="flex items-center justify-between border-t border-y-black/50 py-3">
+                <span>Sub Total: </span>
+                <span>Frw 400</span>
+              </div>
+              <div className="flex items-center justify-between border-y border-y-black/50 py-3">
+                <span>Shipping: </span>
+                <span>Free</span>
+              </div>
+              <div className="flex items-center justify-between border-b border-y-black/50 py-3">
+                <span>Total: </span>
+                <span>Frw 400</span>
+              </div>
+            </div>
           </div>
+          <button className="text-white bg-brand-500 text-sm p-2 w-1/3 rounded-md self-end my-3" onClick={onClose}>Close</button>
         </ModalContent>
       </Modal>
     </div>
