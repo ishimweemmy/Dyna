@@ -1,124 +1,135 @@
 export const ordersData = [
   {
-    id: "1",
-    date: "2023-01-01",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product A",
-    revenue: 50.0,
+    id: '1',
+    date: '2023-01-01',
+    status: 'pending',
+    customer: 'Alice Murinho',
+    revenue: 50,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "2",
-    date: "2023-01-02",
-    status: "Canceled",
-    customer: "Alice Murinho",
-    productName: "Product B",
+    id: '2',
+    date: '2023-01-02',
+    status: 'completed',
+    customer: 'Alice Murinho',
     revenue: 75.5,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "3",
-    date: "2023-01-03",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product C",
+    id: '3',
+    date: '2023-01-03',
+    status: 'completed',
+    customer: 'Alice Murinho',
     revenue: 30.25,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "4",
-    date: "2023-01-01",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product A",
-    revenue: 50.0,
+    id: '4',
+    date: '2023-01-01',
+    status: 'cancelled',
+    customer: 'Alice Murinho',
+    revenue: 50,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "5",
-    date: "2023-01-02",
-    status: "Canceled",
-    customer: "Alice Murinho",
-    productName: "Product B",
+    id: '5',
+    date: '2023-01-02',
+    status: 'shipped',
+    customer: 'Alice Murinho',
     revenue: 75.5,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "6",
-    date: "2023-01-03",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product C",
+    id: '6',
+    date: '2023-01-03',
+    status: 'pending',
+    customer: 'Alice Murinho',
     revenue: 30.25,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "7",
-    date: "2023-01-01",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product A",
-    revenue: 50.0,
+    id: '7',
+    date: '2023-01-01',
+    status: 'cancelled',
+    customer: 'Alice Murinho',
+    revenue: 50,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "8",
-    date: "2023-01-02",
-    status: "Canceled",
-    customer: "Alice Murinho",
-    productName: "Product B",
+    id: '8',
+    date: '2023-01-02',
+    status: 'shipped',
+    customer: 'Alice Murinho',
     revenue: 75.5,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "9",
-    date: "2023-01-03",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product C",
+    id: '9',
+    date: '2023-01-03',
+    status: 'completed',
+    customer: 'Alice Murinho',
     revenue: 30.25,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "10",
-    date: "2023-01-01",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product A",
-    revenue: 50.0,
+    id: '10',
+    date: '2023-01-01',
+    status: 'pending',
+    customer: 'Alice Murinho',
+    revenue: 50,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "11",
-    date: "2023-01-02",
-    status: "Canceled",
-    customer: "Alice Murinho",
-    productName: "Product B",
+    id: '11',
+    date: '2023-01-02',
+    status: 'cancelled',
+    customer: 'Alice Murinho',
     revenue: 75.5,
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
   },
   {
-    id: "12",
-    date: "2023-01-03",
-    status: "Paid",
-    customer: "Alice Murinho",
-    productName: "Product C",
+    id: '12',
+    date: '2023-01-03',
+    status: 'cancelled',
+    customer: 'Alice Murinho',
     revenue: 30.25,
-  },
-];
-
+    email: 'ualice@gmail.com',
+    phoneNumber: '0789706579'
+  }
+]
 
 export const orderProductsData = [
   {
     id: "1",
     image: "/assets/img/profile/image1.png",
     name: "Wireless Headphone (Black)",
-    units: 1,
-    revenue: 50.0,
+    units: 3,
+    revenue: 5400.0,
   },
   {
     id: "1",
     image: "/assets/img/profile/image1.png",
     name: "Wireless Headphone (Black)",
     units: 1,
-    revenue: 50.0,
+    revenue: 12000.0,
   },
   {
     id: "1",
     image: "/assets/img/profile/image1.png",
     name: "Wireless Headphone (Black)",
-    units: 1,
-    revenue: 50.0,
+    units: 2,
+    revenue: 23000.0,
   }
 ];
 
@@ -192,4 +203,3 @@ export const productsData = [
     category: "Electronics"
   },
 ];
-

@@ -2,17 +2,20 @@
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
     Avatar,
+  Input,
   Modal,
   ModalContent,
   ModalOverlay,
+  Select,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
-  Tabs
+  Tabs,
+  Textarea
 } from '@chakra-ui/react';
 import { useState, type FC } from "react";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdFileUpload } from "react-icons/md";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Controller } from 'swiper/modules';
@@ -24,7 +27,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { BsStarFill } from "react-icons/bs";
-import EditProduct from "./EditProduct";
+import Upload from "../../profile/components/Upload";
 
 const RATINGS = 4;
 
@@ -41,13 +44,7 @@ const Stars:FC<{extraStyles: string, rating: number}> = ({extraStyles, rating}) 
     return <span className="flex gap-1 items-center justify-start !text-sm">{ratingStarsFilled}{ratingStarsHalf}</span>
 }
 
-const Product: FC<{ productId: string, tableData: any }> = ({ productId, tableData }) => {
-  const { isOpen: isProductOpen, onOpen: onProductOpen, onClose: onProductClose } = useDisclosure()
-  const { isOpen: isProductEditOpen, onOpen: onProductEditOpen, onClose: onProductEditClose } = useDisclosure()
-  const [bottomSwiper, setBottomSwiper] = useState(null)
-  const [topSwiper, setTopSwiper] = useState(null)
-  const { images, category, status } = tableData;
-
+const EditProduct: FC<{ productId: string, tableData: any, isProductEditOpen: boolean, onProductEditClose: () => void }> = ({ productId, tableData, isProductEditOpen, onProductEditClose }) => {
   const ratingStarsFilled = Array.from({length: RATINGS}).fill(undefined).map((_item) => {
     return <BsStarFill className="text-yellow-500 text-base" />
   })
@@ -57,62 +54,47 @@ const Product: FC<{ productId: string, tableData: any }> = ({ productId, tableDa
   })
 
   return (
-    <div>
-        <button
-            className="linear rounded-md border border-brand-500 text-brand-500 px-3 py-2 text-xs font-bold transition duration-200 active:border-brand-600 0 hover:bg-brand-500 hover:text-white"
-            onClick={onProductOpen}
-        >
-            view product details
-        </button>
-        <Modal isOpen={isProductOpen} onClose={onProductClose} isCentered>
+    <form>
+        <Modal isOpen={isProductEditOpen} onClose={onProductEditClose} isCentered>
             <ModalOverlay />
             <ModalContent className="w-full py-8 px-10 flex flex-col items-start justify-center gap-4" maxWidth={900}>
                 <div className="w-full flex items-center justify-between border-b py-3">
-                    <span className="font-bold text-black/50">Product Details</span>
-                    <MdClose onClick={onProductClose} className="cursor-pointer" />
+                    <span className="font-bold text-black/50">Edit product</span>
+                    <MdClose onClick={onProductEditClose} className="cursor-pointer" />
                 </div>
-                <div className="w-full flex items-start justify-center gap-8">
-                    <div className="w-fit flex flex-col gap-4">
-                        <Swiper spaceBetween={10} modules={[Autoplay, Controller]} slidesPerGroup={1} pagination={{ clickable: true }} autoplay loop aria-disabled={false} className="h-[20rem] w-[23rem] rounded-lg" onSwiper={setTopSwiper} controller={{control: bottomSwiper}}>
-                            {
-                                images.map((image: string) => {
-                                    return (
-                                        <SwiperSlide>
-                                            <img src={image} alt="" className="w-full h-full" />
-                                        </SwiperSlide>
-                                    )
-                                })
-                            }
-                        </Swiper>
-                        <Swiper spaceBetween={10} modules={[Autoplay, Controller]} slidesPerView={5} pagination={{ clickable: true }} autoplay loop aria-disabled={false} className="h-[3rem] w-[23rem] rounded-lg" onSwiper={setBottomSwiper} controller={{control: topSwiper}}>
-                            {
-                                images.map((image: string) => {
-                                    return (
-                                        <SwiperSlide>
-                                            <img src={image} alt="" className="w-full h-full" />
-                                        </SwiperSlide>
-                                    )
-                                })
-                            }
-                        </Swiper>
-                    </div>
-                    <div className="flex flex-col items-start justify-center gap-4">
-                        <span className="text-sm text-gray-600 font-semibold">{category} products</span>
-                        <span className="text-2xl font-semibold">Ultimate Ears Wonderboom</span>
-                        <span className={ `text-white text-xs font-bold rounded-full px-2 ${status == "in_stock" ? "bg-green-500" : "bg-brand-500"}` }>{ status == "in_stock" ? "In stock" : "Out of stock" }</span>
-                        <span className="text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad assumenda autem eaque error explicabo fugiat iusto necessitatibus, temporibus. Laudantium, voluptate?</span>
-                        <p className="flex gap-4 text-xl">
-                            <span className="line-through text-black/50">frw 10000</span>
-                            <span className="">frw 5000</span>
+                <div className="w-full flex items-stretch justify-center gap-8">
+                    <div className="col-span-5 w-[40%] rounded-xl bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6">
+                        <button className="flex h-full w-full flex-col items-center justify-center rounded-xl border-[2px] border-dashed border-gray-200 py-3 dark:!border-navy-700 lg:pb-0">
+                        <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                        <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                            update product's images
+                        </h4>
+                        <p className="mt-2 text-sm font-medium text-gray-600">
+                            PNG, JPG and GIF files are allowed
                         </p>
-                        <span className="flex gap-1">{ratingStarsFilled}{ratingStarsHalf}</span>
-                        <div className="flex items-center justify-center gap-3">
-                            <span className="text-sm font-semibold">Available in:</span>
-                            <div className="flex items-center justify-center gap-1">
-                                <div className="w-4 h-4 rounded-full bg-slate-600"></div>
-                                <div className="w-4 h-4 rounded-full bg-red-600"></div>
-                            </div>
-                        </div>
+                        <p className="mt-2 text-sm font-medium text-gray-600">Note that the first image will be the cover image</p>
+                        </button>
+                    </div>
+                    <div className="w-[60%] flex flex-col items-start justify-center gap-4">
+                        <Select placeholder='Select category' name="category" className="!text-sm">
+                            <option value="fire_extinguishers" selected>Fire extinguishers services</option>
+                            <option value="construction_services">Construction services</option>
+                            <option value="hardware">Hardware</option>
+                        </Select>
+                        <Input variant='outline' defaultValue="Ultimate Ears Wonderboom" name="name" className="!text-sm" />
+                        <Select placeholder='Select status' name="status" className="!text-sm">
+                            <option value="in_stock" selected>In stock</option>
+                            <option value="out_of_stock">Out of stock</option>
+                        </Select>
+                        <Textarea resize={"none"} defaultValue="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad assumenda autem eaque error explicabo fugiat iusto necessitatibus, temporibus. Laudantium, voluptate?" className="!text-sm" />
+                        <p className="flex gap-4 text-xl">
+                            <Select placeholder='Select currency' name="currency" className="!text-sm">
+                                <option value="frw" selected>FRW</option>
+                                <option value="usd">USD</option>
+                            </Select>
+                            <Input variant='outline' defaultValue="10000" name="oldPrice" className="line-through text-black/50 !text-sm" />
+                            <Input variant='outline' defaultValue="5000" name="newPrice" className="!text-sm" />
+                        </p>
                     </div>
                 </div>
                 <div className="w-full max-h-[20vh] overflow-scroll">
@@ -151,18 +133,14 @@ const Product: FC<{ productId: string, tableData: any }> = ({ productId, tableDa
                     </Tabs>
                 </div>
                 <div className="flex items-center justify-center gap-3 w-full">
-                    <button className="text-brand-500 border border-brand-500 text-sm p-2 w-1/3 rounded-md self-end my-3 whitespace-nowrap" onClick={() => {
-                        onProductClose()
-                        onProductEditOpen()
-                    }}>Edit product</button>
+                    <button className="text-brand-500 border border-brand-500 text-sm p-2 w-1/3 rounded-md self-end my-3 whitespace-nowrap">Save product</button>
                     <button className="text-white bg-brand-500 text-sm p-2 w-1/3 rounded-md self-end my-3 whitespace-nowrap">Delete product</button>
-                    <button className="text-white bg-brand-500 text-sm p-2 w-1/3 rounded-md self-end my-3" onClick={onProductClose}>Close</button>
+                    <button className="text-white bg-brand-500 text-sm p-2 w-1/3 rounded-md self-end my-3" onClick={onProductEditClose}>Close</button>
                 </div>
             </ModalContent>
         </Modal>
-        <EditProduct productId={productId} tableData={tableData} isProductEditOpen={isProductEditOpen} onProductEditClose={onProductEditClose}  />
-    </div>
+    </form>
   )
 }
 
-export default Product;
+export default EditProduct;

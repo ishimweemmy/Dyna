@@ -5,7 +5,7 @@ import {
   ModalOverlay
 } from '@chakra-ui/react';
 import { FC, useState } from "react";
-import { MdClose } from "react-icons/md";
+import { MdCancel, MdCheckCircle, MdClose, MdPending, MdRefresh } from "react-icons/md";
 import {
   createColumnHelper,
   flexRender,
@@ -14,6 +14,12 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import Card from "src/components/card";
+import OrderFlexCol from "./OrderFlexCol";
+import AddressCard from "./AddressCard";
+import { useLocation } from "react-router-dom";
+import AddDelivery from "./AddDelivery";
+import Delivery from "./Delivery";
 
 type RowObj = {
   id: string;
@@ -25,8 +31,12 @@ type RowObj = {
 
 const columnHelper = createColumnHelper<RowObj>();
 
-const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData }) => {
+const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ orderId, tableData, orderTableData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { pathname } = useLocation()
+  const page = pathname.split("/")[2]
+
+  const { status, customer, email, phoneNumber, date } = orderTableData;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   let defaultData = tableData;
@@ -67,6 +77,19 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
         </p>
       ),
     }),
+    columnHelper.accessor("revenue", {
+      id: "totalPrice",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 ">
+          Total price
+        </p>
+      ),
+      cell: (info) => (
+        <p className="text-sm text-navy-700 font-normal ">
+          frw {info.getValue() * info.row.original.units}
+        </p>
+      ),
+    }),
     columnHelper.accessor("units", {
       id: "units",
       header: () => null,
@@ -86,8 +109,6 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
     debugTable: true,
   });
 
-  const [orderStatus, setOrderStatus] = useState("Delivered")
-
   return (
     <div>
       <button
@@ -98,23 +119,47 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
       </button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent className="w-full py-8 px-10 flex flex-col items-start justify-center gap-4" maxWidth={600}>
+        <ModalContent className="w-full py-8 px-10 flex flex-col items-start justify-center gap-4 bg-lightPrimary" maxWidth={700}>
           <div className="w-full flex items-center justify-between border-b py-3">
             <span className="font-bold text-black/50">Order Details</span>
             <MdClose onClick={onClose} className="cursor-pointer" />
           </div>
-          <div className="flex flex-col items-start justify-center text-base gap-2">
-            <span className="">Order no.<b className="text-brand-500 font-normal text-sm">{orderId}</b> from <b className="text-brand-500 font-normal text-sm">23.02.2021</b></span>
-            <span className="">Billing name: <b className="text-brand-500 font-normal text-sm">Neal Matthews</b></span>
-            <span className="">order status: <input type="text" className="text-brand-500 font-normal text-sm p-2 focus:outline-gray-500 ml-2" value={orderStatus} onChange={(e) => setOrderStatus(e.target.value)} /></span>
-            {/* <input type="" /> */}
-          </div>
-          <div className="w-full flex flex-col items-center justify-center">
+          <Card extra="w-full gap-10">
+            <div className="flex items-center justify-between text-sm font-semibold">
+              <span>Order No : <b className="text-brand-500 font-normal">#{orderId}</b></span>
+              <div className="flex items-center">
+                {status === "completed" ? (
+                  <MdCheckCircle className="text-green-500 me-1 dark:text-green-300" />
+                ) : status === "cancelled" ? (
+                  <MdCancel className="text-red-500 me-1 dark:text-red-300" />
+                ) : status === "shipped" ? (
+                  <MdRefresh className="text-yellow-400 me-1" />
+                ) : (
+                  <MdPending className="text-navy-700 me-1 dark:text-amber-300" />
+                )
+                }
+                <p className="text-sm font-bold text-navy-700 dark:text-white">
+                  {status}
+                </p>
+              </div>
+            </div>
+            <div className="w-full flex justify-between">
+              <OrderFlexCol label="Order Created at" value={date} />
+              <OrderFlexCol label="Name" value={customer} />
+              <OrderFlexCol label="Email" value={email} />
+              <OrderFlexCol label="Contact No" value={phoneNumber} />
+            </div>
+            <div className="w-full flex gap-4">
+              <AddressCard address="29543 South Plaza" addressNickname="Home" customer={customer} phoneNumber="07897065778" title="Delivery Address" />
+              <AddressCard address="kigali downtown Makuza plaza" addressNickname="Workplace" customer={customer} phoneNumber="07897069078" title="Billing Address" />
+            </div>
+          </Card>
+          <div className="w-full flex flex-col items-center justify-center gap-4">
             <table className="w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id} className="!border-px !border-gray-400 !w-fit">
-                    {headerGroup.headers.slice(0, 3).map((header) => {
+                    {headerGroup.headers.slice(0, 4).map((header) => {
                       return (
                         <th
                           key={header.id}
@@ -145,7 +190,7 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
                   .map((row) => {
                     return (
                       <tr key={row.id}>
-                        {row.getVisibleCells().slice(0, 3).map((cell) => {
+                        {row.getVisibleCells().slice(0, 4).map((cell) => {
                           return (
                             <td
                               key={cell.id}
@@ -163,22 +208,21 @@ const Order: FC<{ orderId: string, tableData: any  }> = ({ orderId, tableData })
                   })}
               </tbody>
             </table>
-            <div className="w-full flex flex-col text-navy-700 text-sm">
-              <div className="flex items-center justify-between border-t border-y-black/50 py-3">
-                <span>Sub Total: </span>
-                <span>Frw 400</span>
-              </div>
-              <div className="flex items-center justify-between border-y border-y-black/50 py-3">
-                <span>Shipping: </span>
-                <span>Free</span>
-              </div>
-              <div className="flex items-center justify-between border-b border-y-black/50 py-3">
-                <span>Total: </span>
-                <span>Frw 400</span>
+            <div className="w-full flex items-center justify-between">
+              {
+                page == "deliveries" && (
+                  <>
+                    <AddDelivery status={status} />
+                    <Delivery status={status} />
+                  </>
+                )
+              }
+              <div className="flex gap-3 self-end p-2 px-4 text-sm font-bold text-white bg-brand-500">
+                <span>Net price:</span>
+                <span>Frw 74200</span>
               </div>
             </div>
           </div>
-          <button className="text-white bg-brand-500 text-sm p-2 w-1/3 rounded-md self-end my-3" onClick={onClose}>Close</button>
         </ModalContent>
       </Modal>
     </div>
