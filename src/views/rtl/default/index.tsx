@@ -1,4 +1,3 @@
-import MiniCalendar from "src/components/calendar/MiniCalendar";
 import WeeklyRevenue from "src/views/admin/default/components/WeeklyRevenue";
 import TotalSpent from "src/views/admin/default/components/TotalSpent";
 import PieChartCard from "src/views/admin/default/components/PieChartCard";
@@ -83,7 +82,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
           <TaskCard />
           <div className="grid grid-cols-1 rounded-[20px]">
-            <MiniCalendar />
+            {/* <MiniCalendar /> */}
           </div>
         </div>
       </div>
