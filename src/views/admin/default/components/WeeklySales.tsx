@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import LineChart from 'src/components/charts/LineChart';
 import BarChart from 'src/components/charts/BarChart'
-import { barChartDataWeeklyRevenue, barChartOptionsWeeklyRevenue, lineChartDataTotalSpent, lineChartOptionsTotalSpent } from 'src/variables/charts';
+import { barChartDataWeeklyRevenue, barChartOptionsWeeklyRevenue, lineChartDataTotalSpent, lineChartOptionsTotalSpent } from '@/variables/charts';
 
 const WeeklySales = () => {
   return (

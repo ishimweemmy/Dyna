@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { MdMoreVert } from "react-icons/md"
 import Card from "src/components/card"
-import { pieChartData, pieChartOptions } from "src/variables/charts";
+import { pieChartData, pieChartOptions } from "@/variables/charts";
 import PieChart from "src/components/charts/PieChart"
 import { BsPhone } from "react-icons/bs";
 import WidgetH from "src/components/widget/WidgetH";

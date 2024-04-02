@@ -44,8 +44,8 @@ const Stars:FC<{extraStyles: string, rating: number}> = ({extraStyles, rating}) 
 const Product: FC<{ productId: string, tableData: any }> = ({ productId, tableData }) => {
   const { isOpen: isProductOpen, onOpen: onProductOpen, onClose: onProductClose } = useDisclosure()
   const { isOpen: isProductEditOpen, onOpen: onProductEditOpen, onClose: onProductEditClose } = useDisclosure()
-  const [bottomSwiper, setBottomSwiper] = useState(null)
-  const [topSwiper, setTopSwiper] = useState(null)
+  const [bottomSwiper, setBottomSwiper] = useState<any>(null)
+  const [topSwiper, setTopSwiper] = useState<any>(null)
   const { images, category, status } = tableData;
 
   const ratingStarsFilled = Array.from({length: RATINGS}).fill(undefined).map((_item) => {

@@ -7,7 +7,7 @@ import Card from "src/components/card";
 import {
   lineChartDataTotalSpent,
   lineChartOptionsTotalSpent,
-} from "src/variables/charts";
+} from "@/variables/charts";
 import LineChart from "src/components/charts/LineChart";
 
 const TotalSpent = () => {

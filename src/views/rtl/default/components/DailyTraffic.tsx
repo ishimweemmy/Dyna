@@ -1,6 +1,6 @@
 import BarChart from "src/components/charts/BarChart";
-import { barChartDataDailyTraffic } from "src/variables/charts";
-import { barChartOptionsDailyTraffic } from "src/variables/charts";
+import { barChartDataDailyTraffic } from "@/variables/charts";
+import { barChartOptionsDailyTraffic } from "@/variables/charts";
 import { MdArrowDropUp } from "react-icons/md";
 import Card from "src/components/card";
 const DailyTraffic = () => {

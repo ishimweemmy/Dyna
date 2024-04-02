@@ -3,7 +3,7 @@ import BarChart from "src/components/charts/BarChart";
 import {
   barChartDataWeeklyRevenue,
   barChartOptionsWeeklyRevenue,
-} from "src/variables/charts";
+} from "@/variables/charts";
 import { MdBarChart } from "react-icons/md";
 
 const WeeklyRevenue = () => {

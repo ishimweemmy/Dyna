@@ -41,7 +41,7 @@ export default function Admin(props: { [x: string]: any }) {
       if (
         window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
       ) {
-        return routes[i].secondary;
+        return routes[i].secondary || false; // Return the secondary value or false
       }
     }
     return activeNavbar;
