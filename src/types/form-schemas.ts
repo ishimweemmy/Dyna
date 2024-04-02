@@ -33,7 +33,7 @@ const RegisterFormSchema = z.object({
 
 const LoginFormSchema = z.object({
   email: z.string().email({ message: "Invalid email, please input valid email" }),
-  password: z.string()
+  password: z.string().min(1, {message: "password can't be empty"})
 })
 
 const ForgotPasswordFormSchema = z.object({

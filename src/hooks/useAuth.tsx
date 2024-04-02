@@ -39,7 +39,7 @@ const useAuth = () => {
 
       if(response.status == 200) {
         toast.success("Password updated successfully!!")
-        navigate("/auth/sign-in")
+        navigate("/auth/sign-in", {replace: true})
       }
     })
   }

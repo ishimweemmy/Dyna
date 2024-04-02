@@ -25,7 +25,7 @@ export const userSlice = createSlice({
         logout: (state, _action: PayloadAction<TUser>) => {
             state.email = ""
             state.firstName = ""
-            state.lastName = ""
+            state.lastName = "" 
             state.key = ""
             state.phoneNumber = ""
         }

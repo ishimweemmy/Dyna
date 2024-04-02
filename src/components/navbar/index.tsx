@@ -2,14 +2,9 @@ import React from "react";
 import Dropdown from "src/components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import navbarimage from "src/assets/img/layout/Navbar.png";
-import { BsArrowBarUp } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
-import {
-  IoMdNotificationsOutline,
-  IoMdInformationCircleOutline,
-} from "react-icons/io";
+
 import avatar from "src/assets/img/avatars/avatar4.png";
 
 const Navbar = (props: {
@@ -90,13 +85,13 @@ const Navbar = (props: {
         <Dropdown
           button={
             <img
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 rounded-full cursor-pointer"
               src={avatar}
               alt="Elon Musk"
             />
           }
           children={
-            <div className="flex h-48 w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
+            <div className="flex h-40 w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
               <div className="mt-3 ml-4">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -106,25 +101,10 @@ const Navbar = (props: {
               </div>
               <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
 
-              <div className="mt-3 ml-4 flex flex-col">
-                <a
-                  href=" "
-                  className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                >
-                  Profile Settings
-                </a>
-                <a
-                  href=" "
-                  className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                >
-                  Newsletter Settings
-                </a>
-                <a
-                  href=" "
-                  className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
-                >
-                  Log Out
-                </a>
+              <div className="mt-3 ml-4 flex flex-col gap-2">
+                <Link to={"/admin/profile"} className="text-sm text-gray-800 dark:text-white hover:dark:text-white">Profile Settings</Link>
+                <Link to={"/admin/profile"} className="text-sm text-gray-800 dark:text-white hover:dark:text-white">Newsletter Settings</Link>
+                <button className="text-sm font-medium text-red-500 hover:text-red-500 text-start">Log Out</button>
               </div>
             </div>
           }
