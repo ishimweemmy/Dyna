@@ -1,4 +1,3 @@
-import InputField from "src/components/fields/InputField";
 import { Link } from "react-router-dom";
 
 const EmailConfirm = () => {
@@ -11,7 +10,7 @@ const EmailConfirm = () => {
         <p className="mb-6 ml-1 text-base text-gray-600">
           Enter your email or phone-number then we will send a confirmation message!
         </p>
-        <InputField
+        {/* <InputField
           variant="auth"
           extra="mb-3"
           label="phone number"
@@ -23,16 +22,16 @@ const EmailConfirm = () => {
           <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
           <p className="text-base text-gray-600 dark:text-white"> or </p>
           <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
-        </div>
+        </div> */}
         {/* Email */}
-        <InputField
+        {/* <InputField
           variant="auth"
           extra="mb-3"
           label="Email*"
           placeholder="mail@simmmple.com"
           id="email"
           type="text"
-        />
+        /> */}
         <button className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
           send confirmation code
         </button>

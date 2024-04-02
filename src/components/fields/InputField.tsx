@@ -1,25 +1,28 @@
+import { FieldError, UseFormRegister } from "react-hook-form";
+import { cn } from "src/lib/utils";
+
 function InputField(props: {
   id: string;
   label: string;
-  extra: string;
+  extra?: string;
   placeholder: string;
   variant: string;
   state?: string;
   disabled?: boolean;
   type?: string;
   name?: string;
-  value?: string
+  value?: string;
+  error?: FieldError,
+  register: UseFormRegister<any>,
 }) {
-  const { label, id, extra, type, placeholder, variant, state, disabled, name, value } =
+  const { label, id, extra, type, placeholder, variant, state, disabled, name, value, error, register } =
     props;
 
   return (
     <div className={`w-full ${extra}`}>
       <label
         htmlFor={id}
-        className={`text-sm text-navy-700 dark:text-white ${
-          variant === "auth" ? "ml-1.5 font-medium" : "ml-3 font-bold"
-        }`}
+        className={cn(`text-sm text-navy-700 dark:text-white`, variant === "auth" ? "ml-1.5 font-medium": "ml-3 font-bold", error && "text-red-500")}
       >
         {label}
       </label>
@@ -36,10 +39,12 @@ function InputField(props: {
             ? "ring-red-500 text-red-500 placeholder:text-red-500 dark:!ring-red-400 dark:!text-red-400 dark:placeholder:!text-red-400"
             : state === "success"
             ? "ring-green-500 text-green-500 placeholder:text-green-500 dark:!ring-green-400 dark:!text-green-400 dark:placeholder:!text-green-400"
-            : "ring-gray-200 dark:!ring-white/10 dark:text-white"
+            : "ring-gray-300 dark:!ring-white/30 dark:text-white"
         }`}
         value={value}
+        {...register(name)}
       />
+      {error && <span className="text-xs text-red-500">{error.message}</span>}
     </div>
   );
 }

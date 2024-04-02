@@ -312,6 +312,7 @@ export default {
     screens: {
       sm: "576px",
       "sm-max": { max: "576px" },
+      "sm-max-2": "680px",
       md: "768px",
       "md-max": { max: "768px" },
       lg: "992px",
