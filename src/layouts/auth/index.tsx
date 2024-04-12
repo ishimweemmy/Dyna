@@ -1,10 +1,15 @@
 import Footer from "src/components/footer/FooterAuthDefault";
 import authImg from "src/assets/img/auth/authBg1.png";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import FixedPlugin from "src/components/fixedPlugin/FixedPlugin";
+import { isAuthenticated } from "@/lib/utils";
 
 export default function Auth() {
   document.documentElement.dir = "ltr";
+  const isAllowed = isAuthenticated()
+
+  if(isAllowed) return <Navigate to={"/"} />
+
   return (
     <div className="relative float-right h-full min-h-screen w-full !bg-white dark:!bg-navy-900">
       <FixedPlugin />

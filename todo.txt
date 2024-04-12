@@ -1,0 +1,7 @@
+* create category page
+* for creating a product, category part we pass in category id
+* manufacturers page
+
+* category
+* manufacturer
+* product => illustration => reviews

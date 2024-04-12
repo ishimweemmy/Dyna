@@ -65,3 +65,9 @@ export const isTokenExpired = (
     return true;
   }
 };
+
+export const isAuthenticated = () => {
+  const token = Cookies.get("currentUser")
+  const expired = token ? isTokenExpired(token) : true
+  return expired ? false : true
+}

@@ -1,4 +1,4 @@
-import MainDashboard from "src/views/admin/default";
+  import MainDashboard from "src/views/admin/default";
 import Profile from "src/views/admin/profile";
 
 // Icon Imports
@@ -10,6 +10,7 @@ import Orders from "./views/admin/orders";
 import { FaJediOrder, FaProductHunt } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import Products from "./views/admin/products";
+import Categories from "./views/admin/categories";
 
 const routes = [
   {
@@ -27,11 +28,11 @@ const routes = [
     component: <Profile />,
   },
   {
-    name: "Orders",
+    name: "Categories",
     layout: "/admin",
-    path: "orders",
-    icon: <FaJediOrder className="h-5 w-5" />,
-    component: <Orders />,
+    path: "categories",
+    icon: <FaProductHunt className="h-5 w-5" />,
+    component: <Categories />,
   },
   {
     name: "Products",
@@ -41,12 +42,18 @@ const routes = [
     component: <Products />,
   },
   {
+    name: "Orders",
+    layout: "/admin",
+    path: "orders",
+    icon: <FaJediOrder className="h-5 w-5" />,
+    component: <Orders />,
+  },
+  {
     name: "Deliveries",
     layout: "/admin",
     path: "deliveries",
     icon: <TbTruckDelivery className="h-6 w-6" />,
     component: <Orders />,
   }
-
 ];
 export default routes;

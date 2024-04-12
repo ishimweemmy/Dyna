@@ -3,7 +3,7 @@ type TUser = {
     firstName: string,
     lastName: string,
     phoneNumber: string,
-    key: string
+    id: number
 }
 
 type TAuthTokens = {
@@ -13,4 +13,16 @@ type TAuthTokens = {
 
 type TCProps = {
     children: ReactNode
+}
+
+type TRole = {
+    id: number;
+    name: string;
+    description: string
+}
+
+type TCategory = {
+    name: string;
+    description: string;
+    subCategories: Omit<TCategory, "subCategories">[]
 }

@@ -5,7 +5,7 @@ const initialState: TUser = {
     email: "",
     firstName: "",
     lastName: "",
-    key: "",
+    id: "",
     phoneNumber: ""
 }
 
@@ -19,18 +19,18 @@ export const userSlice = createSlice({
             state.email = payload.email
             state.firstName = payload.firstName
             state.lastName = payload.lastName
-            state.key = payload.key
+            state.id = payload.id
             state.phoneNumber = payload.phoneNumber
         },
-        logout: (state, _action: PayloadAction<TUser>) => {
+        logoutUser: (state, _action: PayloadAction<TUser>) => {
             state.email = ""
             state.firstName = ""
             state.lastName = "" 
-            state.key = ""
+            state.id = -1
             state.phoneNumber = ""
         }
     }
 })
 
-export const { logout, setUser } = userSlice.actions
+export const { logoutUser, setUser } = userSlice.actions
 export default userSlice.reducer

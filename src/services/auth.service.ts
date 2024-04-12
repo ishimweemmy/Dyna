@@ -21,7 +21,6 @@ export class AuthService {
     }
 
     loginAdmin = async (data: z.infer<typeof LoginFormSchema>) => {
-        console.log(data)
         return await this.instance.post("/auth/login", data)
     }
 

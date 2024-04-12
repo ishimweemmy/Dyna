@@ -6,6 +6,7 @@ import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
 
 import avatar from "src/assets/img/avatars/avatar4.png";
+import useAuth from "@/hooks/useAuth";
 
 const Navbar = (props: {
   onOpenSidenav: () => void;
@@ -14,6 +15,7 @@ const Navbar = (props: {
 }) => {
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
+  const { logoutMUser } = useAuth()
 
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
@@ -104,7 +106,7 @@ const Navbar = (props: {
               <div className="mt-3 ml-4 flex flex-col gap-2">
                 <Link to={"/admin/profile"} className="text-sm text-gray-800 dark:text-white hover:dark:text-white">Profile Settings</Link>
                 <Link to={"/admin/profile"} className="text-sm text-gray-800 dark:text-white hover:dark:text-white">Newsletter Settings</Link>
-                <button className="text-sm font-medium text-red-500 hover:text-red-500 text-start">Log Out</button>
+                <button className="text-sm font-medium text-red-500 hover:text-red-500 text-start" onClick={logoutMUser}>Log Out</button>
               </div>
             </div>
           }
