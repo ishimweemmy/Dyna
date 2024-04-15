@@ -5,7 +5,7 @@ const initialState: TUser = {
     email: "",
     firstName: "",
     lastName: "",
-    id: "",
+    id: -1,
     phoneNumber: ""
 }
 
