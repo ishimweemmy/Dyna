@@ -16,7 +16,7 @@ const TotalVisitors = () => {
           </span>
           <span className="text-sm">Mobile</span>
         </div>
-        
+
         <div className="flex flex-col items-start justify-center">
           <span className="text-xl font-semibold">20%</span>
           <span className="text-xs text-gray-700">2,890</span>

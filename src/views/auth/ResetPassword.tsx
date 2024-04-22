@@ -7,26 +7,35 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ResetPasswordFormSchema } from "src/types/form-schemas";
 
 export default function ResetPassword() {
-  const { resetUserPassword, loading } = useAuth()
+  const { resetUserPassword, loading } = useAuth();
 
-  const { register, handleSubmit, formState: { errors }} = useForm<z.infer<typeof ResetPasswordFormSchema>>({
-    resolver: zodResolver(ResetPasswordFormSchema)
-  })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.infer<typeof ResetPasswordFormSchema>>({
+    resolver: zodResolver(ResetPasswordFormSchema),
+  });
 
-  const onSubmit = async(data: z.infer<typeof ResetPasswordFormSchema>) => {
-    await resetUserPassword(data)
-  }
+  const onSubmit = async (data: z.infer<typeof ResetPasswordFormSchema>) => {
+    await resetUserPassword(data);
+  };
 
   return (
     <div className="flex h-[40rem] w-full items-center justify-center lg:items-center lg:justify-start sm-max-2:px-[15%] 2xl:px-[10%] 2xl:max-w-[1600px] lg:px-0 lg:h-full">
       {/* Sign in section */}
-      <form noValidate onSubmit={handleSubmit(onSubmit)} className="mt-[2vh] w-full flex flex-col items-center justify-center md:pl-4">
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className="mt-[2vh] w-full flex flex-col items-center justify-center md:pl-4"
+      >
         <h4 className="mb-2.5 text-lg font-bold text-navy-700 dark:text-white md:text-2xl lg:text-4xl text-center">
           Reset your password
         </h4>
         <p className="mb-6 ml-1 text-sm text-gray-600 text-center md:text-base">
-          Enter your email or phone-number then we will send a confirmation message!
-        </p>        
+          Enter your email or phone-number then we will send a confirmation
+          message!
+        </p>
         {/* Email */}
         <InputField
           variant="auth"
@@ -47,7 +56,12 @@ export default function ResetPassword() {
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
             Not registered yet?
           </span>
-          <Link to={"/auth/register"} className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white">Create an account</Link>
+          <Link
+            to={"/auth/register"}
+            className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+          >
+            Create an account
+          </Link>
         </div>
       </form>
     </div>

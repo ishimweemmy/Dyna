@@ -78,8 +78,7 @@ export default function OrdersTable(props: { tableData: any }) {
             <MdRefresh className="text-yellow-400 me-1" />
           ) : (
             <MdPending className="text-navy-700 me-1 dark:text-amber-300" />
-          )
-        }
+          )}
           <p className="text-sm font-bold text-navy-700 dark:text-white">
             {info.getValue()}
           </p>
@@ -102,9 +101,7 @@ export default function OrdersTable(props: { tableData: any }) {
     columnHelper.accessor("email", {
       id: "email",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          EMAIL
-        </p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">EMAIL</p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -134,7 +131,11 @@ export default function OrdersTable(props: { tableData: any }) {
       ),
       cell: (info: any) => (
         <div className="flex items-center">
-         <Order orderId={info.getValue()} tableData={orderProductsData} orderTableData={info.row.original} />
+          <Order
+            orderId={info.getValue()}
+            tableData={orderProductsData}
+            orderTableData={info.row.original}
+          />
         </div>
       ),
     }),
@@ -179,7 +180,7 @@ export default function OrdersTable(props: { tableData: any }) {
                       <div className="items-center justify-between text-xs text-gray-200">
                         {flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                         {{
                           asc: "",
@@ -193,28 +194,25 @@ export default function OrdersTable(props: { tableData: any }) {
             ))}
           </thead>
           <tbody>
-            {table
-              .getRowModel()
-              .rows
-              .map((row) => {
-                return (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => {
-                      return (
-                        <td
-                          key={cell.id}
-                          className="min-w-[150px] border-white/0 py-3  pr-4"
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
+            {table.getRowModel().rows.map((row) => {
+              return (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <td
+                        key={cell.id}
+                        className="min-w-[150px] border-white/0 py-3  pr-4"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

@@ -12,7 +12,7 @@ export default function RTL() {
 
   React.useEffect(() => {
     window.addEventListener("resize", () =>
-      window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
+      window.innerWidth < 1200 ? setOpen(false) : setOpen(true),
     );
   }, []);
   React.useEffect(() => {
@@ -24,7 +24,7 @@ export default function RTL() {
     for (let i = 0; i < routes.length; i++) {
       if (
         window.location.href.indexOf(
-          routes[i].layout + "/" + routes[i].path
+          routes[i].layout + "/" + routes[i].path,
         ) !== -1
       ) {
         setCurrentRoute(routes[i].name);

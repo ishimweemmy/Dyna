@@ -17,13 +17,13 @@ import Product from "../../products/components/Product";
 type RowObj = {
   id: string;
   date: string;
-  status: "in_stock" | "out_of_stock"
+  status: "in_stock" | "out_of_stock";
   units: number;
   productName: string;
   revenue: number;
-  images: string[],
-  currency: string,
-  category: string
+  images: string[];
+  currency: string;
+  category: string;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
@@ -54,12 +54,14 @@ export default function ProductsTable(props: { tableData: any }) {
     columnHelper.accessor("images", {
       id: "images",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          IMAGE
-        </p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">IMAGE</p>
       ),
       cell: (info) => (
-        <img src={info.getValue()[0]} alt="product image" className="w-14 h-14" />
+        <img
+          src={info.getValue()[0]}
+          alt="product image"
+          className="w-14 h-14"
+        />
       ),
     }),
     columnHelper.accessor("productName", {
@@ -78,7 +80,9 @@ export default function ProductsTable(props: { tableData: any }) {
     columnHelper.accessor("date", {
       id: "date",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">CREATED AT</p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">
+          CREATED AT
+        </p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -129,9 +133,7 @@ export default function ProductsTable(props: { tableData: any }) {
     columnHelper.accessor("revenue", {
       id: "customer",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          PRICE
-        </p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">PRICE</p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -153,7 +155,7 @@ export default function ProductsTable(props: { tableData: any }) {
       ),
       cell: (info: any) => (
         <div className="flex items-center">
-         <Product productId={info.getValue()} tableData={info.row.original} />
+          <Product productId={info.getValue()} tableData={info.row.original} />
         </div>
       ),
     }),
@@ -187,39 +189,40 @@ export default function ProductsTable(props: { tableData: any }) {
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id} className="!border-px !border-gray-400">
-                {headerGroup.headers.filter(header => header.id != "currency").map((header) => {
-                  return (
-                    <th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      onClick={header.column.getToggleSortingHandler()}
-                      className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start"
-                    >
-                      <div className="items-center justify-between text-xs text-gray-200">
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                        {{
-                          asc: "",
-                          desc: "",
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </div>
-                    </th>
-                  );
-                })}
+                {headerGroup.headers
+                  .filter((header) => header.id != "currency")
+                  .map((header) => {
+                    return (
+                      <th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        onClick={header.column.getToggleSortingHandler()}
+                        className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start"
+                      >
+                        <div className="items-center justify-between text-xs text-gray-200">
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                          {{
+                            asc: "",
+                            desc: "",
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                      </th>
+                    );
+                  })}
               </tr>
             ))}
           </thead>
           <tbody>
-            {table
-              .getRowModel()
-              .rows
-              .map((row) => {
-                return (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().filter(cell => cell.column.id != "currency").map((cell) => {
-                      console.log(cell)
+            {table.getRowModel().rows.map((row) => {
+              return (
+                <tr key={row.id}>
+                  {row
+                    .getVisibleCells()
+                    .filter((cell) => cell.column.id != "currency")
+                    .map((cell) => {
                       return (
                         <td
                           key={cell.id}
@@ -227,14 +230,14 @@ export default function ProductsTable(props: { tableData: any }) {
                         >
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </td>
                       );
                     })}
-                  </tr>
-                );
-              })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

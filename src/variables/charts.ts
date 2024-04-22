@@ -103,11 +103,11 @@ export const barChartOptionsDailyTraffic = {
 };
 
 export const pieChartOptions = {
-  labels: ["Group A", "Group B", "Group C", "Group D" ],
+  labels: ["Group A", "Group B", "Group C", "Group D"],
   colors: ["#6AD2FAD9", "#9370DB", "#EFF4FB", "#ff0080"],
   chart: {
     width: "100px",
-    type: "donut"
+    type: "donut",
   },
   states: {
     hover: {
@@ -125,7 +125,7 @@ export const pieChartOptions = {
   hover: { mode: null },
   plotOptions: {
     pie: {
-      customScale: 1.2
+      customScale: 1.2,
     },
     donut: {
       expandOnClick: false,

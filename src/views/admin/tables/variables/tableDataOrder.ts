@@ -1,113 +1,113 @@
 export const ordersData = [
   {
-    id: '1',
-    date: '2023-01-01',
-    status: 'pending',
-    customer: 'Alice Murinho',
+    id: "1",
+    date: "2023-01-01",
+    status: "pending",
+    customer: "Alice Murinho",
     revenue: 50,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '2',
-    date: '2023-01-02',
-    status: 'completed',
-    customer: 'Alice Murinho',
+    id: "2",
+    date: "2023-01-02",
+    status: "completed",
+    customer: "Alice Murinho",
     revenue: 75.5,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '3',
-    date: '2023-01-03',
-    status: 'completed',
-    customer: 'Alice Murinho',
+    id: "3",
+    date: "2023-01-03",
+    status: "completed",
+    customer: "Alice Murinho",
     revenue: 30.25,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '4',
-    date: '2023-01-01',
-    status: 'cancelled',
-    customer: 'Alice Murinho',
+    id: "4",
+    date: "2023-01-01",
+    status: "cancelled",
+    customer: "Alice Murinho",
     revenue: 50,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '5',
-    date: '2023-01-02',
-    status: 'shipped',
-    customer: 'Alice Murinho',
+    id: "5",
+    date: "2023-01-02",
+    status: "shipped",
+    customer: "Alice Murinho",
     revenue: 75.5,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '6',
-    date: '2023-01-03',
-    status: 'pending',
-    customer: 'Alice Murinho',
+    id: "6",
+    date: "2023-01-03",
+    status: "pending",
+    customer: "Alice Murinho",
     revenue: 30.25,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '7',
-    date: '2023-01-01',
-    status: 'cancelled',
-    customer: 'Alice Murinho',
+    id: "7",
+    date: "2023-01-01",
+    status: "cancelled",
+    customer: "Alice Murinho",
     revenue: 50,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '8',
-    date: '2023-01-02',
-    status: 'shipped',
-    customer: 'Alice Murinho',
+    id: "8",
+    date: "2023-01-02",
+    status: "shipped",
+    customer: "Alice Murinho",
     revenue: 75.5,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '9',
-    date: '2023-01-03',
-    status: 'completed',
-    customer: 'Alice Murinho',
+    id: "9",
+    date: "2023-01-03",
+    status: "completed",
+    customer: "Alice Murinho",
     revenue: 30.25,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '10',
-    date: '2023-01-01',
-    status: 'pending',
-    customer: 'Alice Murinho',
+    id: "10",
+    date: "2023-01-01",
+    status: "pending",
+    customer: "Alice Murinho",
     revenue: 50,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '11',
-    date: '2023-01-02',
-    status: 'cancelled',
-    customer: 'Alice Murinho',
+    id: "11",
+    date: "2023-01-02",
+    status: "cancelled",
+    customer: "Alice Murinho",
     revenue: 75.5,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
   },
   {
-    id: '12',
-    date: '2023-01-03',
-    status: 'cancelled',
-    customer: 'Alice Murinho',
+    id: "12",
+    date: "2023-01-03",
+    status: "cancelled",
+    customer: "Alice Murinho",
     revenue: 30.25,
-    email: 'ualice@gmail.com',
-    phoneNumber: '0789706579'
-  }
-]
+    email: "ualice@gmail.com",
+    phoneNumber: "0789706579",
+  },
+];
 
 export const orderProductsData = [
   {
@@ -130,7 +130,7 @@ export const orderProductsData = [
     name: "Wireless Headphone (Black)",
     units: 2,
     revenue: 23000.0,
-  }
+  },
 ];
 
 export const productsData = [
@@ -152,7 +152,7 @@ export const productsData = [
       "https://picsum.photos/200",
     ],
     currency: "frw",
-    category: "Electronics"
+    category: "Electronics",
   },
   {
     id: "2",
@@ -161,9 +161,13 @@ export const productsData = [
     units: 0,
     productName: "Door Handle Set",
     revenue: 20000,
-    images: ["https://picsum.photos/200", "https://picsum.photos/200", "https://picsum.photos/200"],
+    images: [
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+    ],
     currency: "frw",
-    category: "Electronics"
+    category: "Electronics",
   },
   {
     id: "3",
@@ -178,7 +182,7 @@ export const productsData = [
       "https://picsum.photos/200",
     ],
     currency: "frw",
-    category: "Electronics"
+    category: "Electronics",
   },
   {
     id: "4",
@@ -187,9 +191,13 @@ export const productsData = [
     units: 15,
     productName: "Modern Table Lamp",
     revenue: 300,
-    images: ["https://picsum.photos/200", "https://picsum.photos/200", "https://picsum.photos/200"],
+    images: [
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+    ],
     currency: "frw",
-    category: "Electronics"
+    category: "Electronics",
   },
   {
     id: "5",
@@ -198,8 +206,12 @@ export const productsData = [
     units: 0,
     productName: "Brass Cabinet Knob",
     revenue: 3000,
-    images: ["https://picsum.photos/200", "https://picsum.photos/200", "https://picsum.photos/200"],
+    images: [
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+      "https://picsum.photos/200",
+    ],
     currency: "frw",
-    category: "Electronics"
+    category: "Electronics",
   },
 ];

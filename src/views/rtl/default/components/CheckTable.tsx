@@ -118,7 +118,7 @@ function CheckTable(props: { tableData: any }) {
                       <div className="items-center justify-between text-xs text-gray-200">
                         {flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                         {{
                           asc: "",
@@ -146,7 +146,7 @@ function CheckTable(props: { tableData: any }) {
                         >
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </td>
                       );

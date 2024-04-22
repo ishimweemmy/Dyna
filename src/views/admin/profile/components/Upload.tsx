@@ -21,7 +21,8 @@ const Upload = () => {
           Complete Your Profile
         </h5>
         <p className="leading-1 mt-2 text-base font-normal text-gray-600">
-          Change the visibility by changing your profile picture. You can just drag and drop to get it done or click left.
+          Change the visibility by changing your profile picture. You can just
+          drag and drop to get it done or click left.
         </p>
         <button className="linear mt-4 flex items-center justify-center rounded-xl bg-brand-500 px-2 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
           complete the update

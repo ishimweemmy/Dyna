@@ -13,7 +13,7 @@ export default function Admin(props: { [x: string]: any }) {
 
   React.useEffect(() => {
     window.addEventListener("resize", () =>
-      window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
+      window.innerWidth < 1200 ? setOpen(false) : setOpen(true),
     );
   }, []);
 
@@ -26,7 +26,7 @@ export default function Admin(props: { [x: string]: any }) {
     for (let i = 0; i < routes.length; i++) {
       if (
         window.location.href.indexOf(
-          routes[i].layout + "/" + routes[i].path
+          routes[i].layout + "/" + routes[i].path,
         ) !== -1
       ) {
         setCurrentRoute(routes[i].name);
@@ -60,7 +60,7 @@ export default function Admin(props: { [x: string]: any }) {
   };
 
   document.documentElement.dir = "ltr";
-  
+
   return (
     <div className="flex h-full w-full">
       <Sidebar open={open} onClose={() => setOpen(false)} />

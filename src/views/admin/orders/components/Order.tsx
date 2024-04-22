@@ -1,11 +1,13 @@
 import { useDisclosure } from "@chakra-ui/hooks";
-import {
-  Modal,
-  ModalContent,
-  ModalOverlay
-} from '@chakra-ui/react';
+import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import { FC, useState } from "react";
-import { MdCancel, MdCheckCircle, MdClose, MdPending, MdRefresh } from "react-icons/md";
+import {
+  MdCancel,
+  MdCheckCircle,
+  MdClose,
+  MdPending,
+  MdRefresh,
+} from "react-icons/md";
 import {
   createColumnHelper,
   flexRender,
@@ -26,15 +28,19 @@ type RowObj = {
   image: string;
   name: string;
   revenue: number;
-  units: number
+  units: number;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
 
-const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ orderId, tableData, orderTableData }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { pathname } = useLocation()
-  const page = pathname.split("/")[2]
+const Order: FC<{ orderId: string; tableData: any; orderTableData: any }> = ({
+  orderId,
+  tableData,
+  orderTableData,
+}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { pathname } = useLocation();
+  const page = pathname.split("/")[2];
 
   const { status, customer, email, phoneNumber, date } = orderTableData;
 
@@ -43,12 +49,14 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
   const columns = [
     columnHelper.accessor("image", {
       id: "image",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 ">Product</p>
-      ),
+      header: () => <p className="text-sm font-bold text-gray-600 ">Product</p>,
       cell: (info: any) => (
         <div className="flex items-center">
-          <img src={info.getValue()} alt={info.getValue() + "image"} className="w-12 h-12" />
+          <img
+            src={info.getValue()}
+            alt={info.getValue() + "image"}
+            className="w-12 h-12"
+          />
         </div>
       ),
     }),
@@ -56,20 +64,20 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
       id: "name",
       header: () => (
         <p className="text-sm font-bold text-gray-600 ">Product Name</p>
-        ),
-        cell: (info) => (
-          <p className="text-sm font-bold text-navy-700  flex flex-col items-start justify-center gap-1 whitespace-nowrap">
-            <span>{info.getValue()}</span>
-            <span className="font-normal text-black/50">frw {info.row.getValue("revenue")} * {info.row.getValue("units")}</span>
-          </p>
+      ),
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700  flex flex-col items-start justify-center gap-1 whitespace-nowrap">
+          <span>{info.getValue()}</span>
+          <span className="font-normal text-black/50">
+            frw {info.row.getValue("revenue")} * {info.row.getValue("units")}
+          </span>
+        </p>
       ),
     }),
     columnHelper.accessor("revenue", {
       id: "revenue",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 ">
-          Price on unit
-        </p>
+        <p className="text-sm font-bold text-gray-600 ">Price on unit</p>
       ),
       cell: (info) => (
         <p className="text-sm text-navy-700 font-normal ">
@@ -80,9 +88,7 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
     columnHelper.accessor("revenue", {
       id: "totalPrice",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 ">
-          Total price
-        </p>
+        <p className="text-sm font-bold text-gray-600 ">Total price</p>
       ),
       cell: (info) => (
         <p className="text-sm text-navy-700 font-normal ">
@@ -119,14 +125,20 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
       </button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent className="w-full py-8 px-10 flex flex-col items-start justify-center gap-4 bg-lightPrimary" maxWidth={700}>
+        <ModalContent
+          className="w-full py-8 px-10 flex flex-col items-start justify-center gap-4 bg-lightPrimary"
+          maxWidth={700}
+        >
           <div className="w-full flex items-center justify-between border-b py-3">
             <span className="font-bold text-black/50">Order Details</span>
             <MdClose onClick={onClose} className="cursor-pointer" />
           </div>
           <Card extra="w-full gap-10">
             <div className="flex items-center justify-between text-sm font-semibold">
-              <span>Order No : <b className="text-brand-500 font-normal">#{orderId}</b></span>
+              <span>
+                Order No :{" "}
+                <b className="text-brand-500 font-normal">#{orderId}</b>
+              </span>
               <div className="flex items-center">
                 {status === "completed" ? (
                   <MdCheckCircle className="text-green-500 me-1 dark:text-green-300" />
@@ -136,8 +148,7 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
                   <MdRefresh className="text-yellow-400 me-1" />
                 ) : (
                   <MdPending className="text-navy-700 me-1 dark:text-amber-300" />
-                )
-                }
+                )}
                 <p className="text-sm font-bold text-navy-700 dark:text-white">
                   {status}
                 </p>
@@ -150,15 +161,30 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
               <OrderFlexCol label="Contact No" value={phoneNumber} />
             </div>
             <div className="w-full flex gap-4">
-              <AddressCard address="29543 South Plaza" addressNickname="Home" customer={customer} phoneNumber="07897065778" title="Delivery Address" />
-              <AddressCard address="kigali downtown Makuza plaza" addressNickname="Workplace" customer={customer} phoneNumber="07897069078" title="Billing Address" />
+              <AddressCard
+                address="29543 South Plaza"
+                addressNickname="Home"
+                customer={customer}
+                phoneNumber="07897065778"
+                title="Delivery Address"
+              />
+              <AddressCard
+                address="kigali downtown Makuza plaza"
+                addressNickname="Workplace"
+                customer={customer}
+                phoneNumber="07897069078"
+                title="Billing Address"
+              />
             </div>
           </Card>
           <div className="w-full flex flex-col items-center justify-center gap-4">
             <table className="w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id} className="!border-px !border-gray-400 !w-fit">
+                  <tr
+                    key={headerGroup.id}
+                    className="!border-px !border-gray-400 !w-fit"
+                  >
                     {headerGroup.headers.slice(0, 4).map((header) => {
                       return (
                         <th
@@ -170,7 +196,7 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
                           <div className="items-center justify-between text-xs text-gray-200">
                             {flexRender(
                               header.column.columnDef.header,
-                              header.getContext()
+                              header.getContext(),
                             )}
                             {{
                               asc: "",
@@ -184,13 +210,13 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
                 ))}
               </thead>
               <tbody>
-                {table
-                  .getRowModel()
-                  .rows
-                  .map((row) => {
-                    return (
-                      <tr key={row.id}>
-                        {row.getVisibleCells().slice(0, 4).map((cell) => {
+                {table.getRowModel().rows.map((row) => {
+                  return (
+                    <tr key={row.id}>
+                      {row
+                        .getVisibleCells()
+                        .slice(0, 4)
+                        .map((cell) => {
                           return (
                             <td
                               key={cell.id}
@@ -198,25 +224,23 @@ const Order: FC<{ orderId: string, tableData: any, orderTableData: any }> = ({ o
                             >
                               {flexRender(
                                 cell.column.columnDef.cell,
-                                cell.getContext()
+                                cell.getContext(),
                               )}
                             </td>
                           );
                         })}
-                      </tr>
-                    );
-                  })}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             <div className="w-full flex items-center justify-between">
-              {
-                page == "deliveries" && (
-                  <>
-                    <AddDelivery status={status} />
-                    <Delivery status={status} />
-                  </>
-                )
-              }
+              {page == "deliveries" && (
+                <>
+                  <AddDelivery status={status} />
+                  <Delivery status={status} />
+                </>
+              )}
               <div className="flex gap-3 self-end p-2 px-4 text-sm font-bold text-white bg-brand-500">
                 <span>Net price:</span>
                 <span>Frw 74200</span>

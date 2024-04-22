@@ -8,7 +8,6 @@ import TotalVisitors from "./components/TotalVisits";
 import LiveVisitors from "./components/LiveVisitors";
 import OrderStats from "./components/OrderStats";
 
-
 const Dashboard = () => {
   return (
     <div className="w-full h-fit grid grid-cols-[30%_23%_20%_20%] gap-6 mt-8">

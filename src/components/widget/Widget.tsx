@@ -4,13 +4,15 @@ const Widget = (props: {
   icon: JSX.Element;
   title: string;
   subtitle: string;
-  extra?: string
+  extra?: string;
 }) => {
   const { icon, title, subtitle, extra } = props;
   return (
     <Card extra="!flex-row flex-grow items-center rounded-[20px]">
       <div className="flex h-[90px] w-auto flex-row items-center cursor-pointer">
-        <div className={`rounded-full bg-lightPrimary p-3 dark:bg-navy-700 ${extra}`}>
+        <div
+          className={`rounded-full bg-lightPrimary p-3 dark:bg-navy-700 ${extra}`}
+        >
           <span className="flex items-center text-brand-500 dark:text-white">
             {icon}
           </span>

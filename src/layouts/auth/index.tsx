@@ -6,9 +6,9 @@ import { isAuthenticated } from "@/lib/utils";
 
 export default function Auth() {
   document.documentElement.dir = "ltr";
-  const isAllowed = isAuthenticated()
+  const isAllowed = isAuthenticated();
 
-  if(isAllowed) return <Navigate to={"/"} />
+  if (isAllowed) return <Navigate to={"/"} />;
 
   return (
     <div className="relative float-right h-full min-h-screen w-full !bg-white dark:!bg-navy-900">

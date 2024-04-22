@@ -1,11 +1,8 @@
-  import MainDashboard from "src/views/admin/default";
+import MainDashboard from "src/views/admin/default";
 import Profile from "src/views/admin/profile";
 
 // Icon Imports
-import {
-  MdHome,
-  MdPerson,
-} from "react-icons/md";
+import { MdHome, MdPerson } from "react-icons/md";
 import Orders from "./views/admin/orders";
 import { FaJediOrder, FaProductHunt } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -54,6 +51,6 @@ const routes = [
     path: "deliveries",
     icon: <TbTruckDelivery className="h-6 w-6" />,
     component: <Orders />,
-  }
+  },
 ];
 export default routes;

@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -15,8 +15,10 @@ export const getAuthorizationHeader = () => {
 };
 
 export const setAuthorizationToken = (token: string, type: string) =>
-  Cookies.set("currentUser", JSON.stringify({ [`${type.toLowerCase()}Token`]: token }));
-
+  Cookies.set(
+    "currentUser",
+    JSON.stringify({ [`${type.toLowerCase()}Token`]: token }),
+  );
 
 const parseJwt = (token: string): Record<string, any> | null => {
   try {
@@ -26,7 +28,7 @@ const parseJwt = (token: string): Record<string, any> | null => {
       atob(base64)
         .split("")
         .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
-        .join("")
+        .join(""),
     );
 
     return JSON.parse(jsonPayload);
@@ -42,24 +44,22 @@ export const isTokenExpired = (
 ): boolean => {
   try {
     if (!currentUserCookie) {
-      return true
+      return true;
     }
 
     const currentUser = currentUserCookie
       ? JSON.parse(currentUserCookie)
       : null;
 
-    const token = currentUser?.accessToken
+    const token = currentUser?.accessToken;
 
-    if (!token) return true
+    if (!token) return true;
 
     const decodedToken = parseJwt(token);
 
-    if (!decodedToken || !decodedToken.exp) return true
+    if (!decodedToken || !decodedToken.exp) return true;
 
-    return (
-      Date.now() >= (decodedToken.exp - expirationTimeBuffer) * 1000
-    );
+    return Date.now() >= (decodedToken.exp - expirationTimeBuffer) * 1000;
   } catch (error) {
     console.error("Error parsing currentUser cookie:", error);
     return true;
@@ -67,7 +67,7 @@ export const isTokenExpired = (
 };
 
 export const isAuthenticated = () => {
-  const token = Cookies.get("currentUser")
-  const expired = token ? isTokenExpired(token) : true
-  return expired ? false : true
-}
+  const token = Cookies.get("currentUser");
+  const expired = token ? isTokenExpired(token) : true;
+  return expired ? false : true;
+};

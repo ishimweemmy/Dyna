@@ -8,7 +8,8 @@ const EmailConfirm = () => {
           You're almost there...
         </h4>
         <p className="mb-6 ml-1 text-base text-gray-600">
-          Enter your email or phone-number then we will send a confirmation message!
+          Enter your email or phone-number then we will send a confirmation
+          message!
         </p>
         {/* <InputField
           variant="auth"
@@ -39,11 +40,16 @@ const EmailConfirm = () => {
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
             Not registered yet?
           </span>
-          <Link to={"/auth/register"} className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white">Create an account</Link>
+          <Link
+            to={"/auth/register"}
+            className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+          >
+            Create an account
+          </Link>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default EmailConfirm;
