@@ -32,7 +32,6 @@ const InputField: FC<{
     inputStyles,
     register,
   } = props;
-  console.log(error);
 
   return (
     <div className={`w-full ${extra}`}>

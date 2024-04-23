@@ -17,7 +17,6 @@ const useCategories = () => {
 
       if (response.status == 200) {
         dispatch(setCategories(response.data.data));
-        toast.success("successfully got all categories");
       }
     });
   };
@@ -33,17 +32,30 @@ const useCategories = () => {
     });
   };
 
-  // const updateCategory = (data: z.infer<typeof CategoryFormSchema>, id: string) => {
-  //   withLoading(async() => {
-  //     const response = await categoryService.updateCategory(data, id)
+  const updateCategory = (data: z.infer<typeof CategoryFormSchema>, id: string) => {
+    withLoading(async() => {
+      const response = await categoryService.updateCategory(data, id)
 
-  //       if(response.status == 200) {
-  //         console.log()
-  //       }
-  //   })
-  // }
+        if(response.status == 200) {
+          toast.success("category updated successfully!")
+          getCategories()
+        }
+    })
+  }
 
-  return { categories, loading, getCategories, createCategory };
+  const deleteCategory = (id: string, onClose: () => void) => {
+    withLoading(async() => {
+      const response = await categoryService.removeCategory(id)
+
+      if(response.status == 200) {
+        toast.success("category deleted successfully!")
+        getCategories()
+        onClose()
+      }
+    })
+  }
+
+  return { categories, loading, getCategories, createCategory, updateCategory, deleteCategory };
 };
 
 export default useCategories;

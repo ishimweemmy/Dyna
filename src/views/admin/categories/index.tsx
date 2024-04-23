@@ -7,9 +7,8 @@ import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CategoryFormSchema } from "@/types/form-schemas";
-import { FaTrash } from "react-icons/fa";
 import { TbTrash } from "react-icons/tb";
 import useCategories from "@/hooks/useCategories";
 
@@ -160,11 +159,11 @@ const Categories = () => {
                 type="button"
                 className="w-1/3 self-start linear rounded-md border border-brand-500 text-brand-500 px-3 py-2 text-xs font-bold transition duration-200 uppercase active:border-brand-600 mb-4 disabled:bg-brand-400 disabled:hover:bg-brand-400"
                 onClick={() => {
-                  const isSubCategoriesEmpty = watchSubCategoriesArray.find(
+                  const isAnySubCategoryEmpty = watchSubCategoriesArray.find(
                     (category) =>
                       category.name === "" || category.description === "",
                   );
-                  if (isSubCategoriesEmpty) {
+                  if (isAnySubCategoryEmpty) {
                     setError("subCategories", {
                       message: "please fill this field",
                     });
