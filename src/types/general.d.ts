@@ -29,3 +29,5 @@ type TCategory = {
   description: string;
   subCategories: TSubCategory[];
 };
+
+type TManufacturer = Omit<TCategory, "subCategories"> & { file: File };

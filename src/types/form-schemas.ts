@@ -88,6 +88,17 @@ const CategoryFormSchema = z.object({
   ),
 });
 
+const ManufacturerFormSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "manufacturer name can't go below 3 characters" })
+    .max(30, { message: "manufacturer name can't exceed 30 characters" }),
+  description: z
+    .string()
+    .min(3, "manufacturer description can't go below 3 characters"),
+  file: z.instanceof(File, { message: "You should input a file" }),
+});
+
 export {
   RegisterFormSchema,
   LoginFormSchema,
@@ -95,4 +106,5 @@ export {
   ForgotPasswordFormSchema,
   VerifyEmailFormSchema,
   CategoryFormSchema,
+  ManufacturerFormSchema,
 };

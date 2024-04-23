@@ -8,6 +8,7 @@ import { FaJediOrder, FaProductHunt } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import Products from "./views/admin/products";
 import Categories from "./views/admin/categories";
+import Manufacturers from "./views/admin/manufacturers";
 
 const routes = [
   {
@@ -30,6 +31,13 @@ const routes = [
     path: "categories",
     icon: <FaProductHunt className="h-5 w-5" />,
     component: <Categories />,
+  },
+  {
+    name: "manufacturers",
+    layout: "/admin",
+    path: "manufacturers",
+    icon: <FaProductHunt className="h-5 w-5" />,
+    component: <Manufacturers />,
   },
   {
     name: "Products",
