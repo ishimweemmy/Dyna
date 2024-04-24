@@ -16,8 +16,8 @@ const useLoading = () => {
           position: "top-right",
         });
       } else {
-        console.log(error.response);
-        toast.error("Network error occured... Try again later!!");
+        // console.log(error.response);
+        // toast.error("Network error occured... Try again later!!");
       }
     } finally {
       setLoading(false);

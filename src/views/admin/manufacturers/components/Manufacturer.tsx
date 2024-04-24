@@ -10,6 +10,7 @@ import { ManufacturerFormSchema } from "@/types/form-schemas";
 import { TbTrash } from "react-icons/tb";
 import useManufacturers from "@/hooks/useManufacturers";
 import { IoRefresh } from "react-icons/io5";
+import { MdFileUpload } from "react-icons/md";
 
 const Manufacturer: FC<TManufacturer> = ({ id, name, description, file }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -102,6 +103,20 @@ const Manufacturer: FC<TManufacturer> = ({ id, name, description, file }) => {
               register={register}
               disabled={loading}
             />
+            <div className="col-span-5 w-[40%] rounded-xl bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6">
+              <button className="flex h-full w-full flex-col items-center justify-center rounded-xl border-[2px] border-dashed border-gray-200 py-3 dark:!border-navy-700 lg:pb-0">
+                <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                  update product's images
+                </h4>
+                <p className="mt-2 text-sm font-medium text-gray-600">
+                  PNG, JPG and GIF files are allowed
+                </p>
+                <p className="mt-2 text-sm font-medium text-gray-600">
+                  Note that the first image will be the cover image
+                </p>
+              </button>
+            </div>
             <button
               className="w-1/2 linear rounded-md bg-brand-500 text-white px-3 py-2 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
               disabled={loading}

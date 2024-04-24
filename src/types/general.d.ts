@@ -31,3 +31,19 @@ type TCategory = {
 };
 
 type TManufacturer = Omit<TCategory, "subCategories"> & { file: File };
+
+type TInputField = {
+  id: string;
+  label: string;
+  extra?: string;
+  placeholder: string;
+  variant: string;
+  state?: string;
+  disabled?: boolean;
+  type?: string;
+  name: string;
+  value?: string;
+  error?: FieldError | any;
+  register: UseFormRegister<any>;
+  inputStyles?: string;
+};

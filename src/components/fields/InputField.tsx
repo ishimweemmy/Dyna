@@ -1,38 +1,21 @@
 import { FC } from "react";
-import { FieldError, UseFormRegister } from "react-hook-form";
 import { cn } from "src/lib/utils";
 
-const InputField: FC<{
-  id: string;
-  label: string;
-  extra?: string;
-  placeholder: string;
-  variant: string;
-  state?: string;
-  disabled?: boolean;
-  type?: string;
-  name: string;
-  value?: string;
-  error?: FieldError | any;
-  register: UseFormRegister<any>;
-  inputStyles?: string;
-}> = (props) => {
-  const {
-    label,
-    id,
-    extra,
-    type,
-    placeholder,
-    variant,
-    state,
-    disabled,
-    name,
-    value,
-    error,
-    inputStyles,
-    register,
-  } = props;
-
+const InputField: FC<TInputField> = ({
+  id,
+  label,
+  name,
+  placeholder,
+  register,
+  variant,
+  disabled,
+  error,
+  extra,
+  inputStyles,
+  state,
+  type,
+  value,
+}) => {
   return (
     <div className={`w-full ${extra}`}>
       {label && (
@@ -63,7 +46,6 @@ const InputField: FC<{
         } ${inputStyles}`}
         value={value}
         {...register(name)}
-        // name={name}
       />
       {error ? (
         <span className="text-xs text-red-500">{error.message}</span>

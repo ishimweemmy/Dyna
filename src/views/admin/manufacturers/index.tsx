@@ -7,15 +7,19 @@ import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ManufacturerFormSchema } from "@/types/form-schemas";
 import useManufacturers from "@/hooks/useManufacturers";
+import { MdFileUpload } from "react-icons/md";
+import FileField from "@/components/fields/FileField";
 
 const Manufacturers = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { manufacturers, loading, createManufacturer, getManufacturers } =
     useManufacturers();
+
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     getManufacturers();
@@ -25,14 +29,19 @@ const Manufacturers = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<z.infer<typeof ManufacturerFormSchema>>({
     resolver: zodResolver(ManufacturerFormSchema),
+    defaultValues: {
+      description: "",
+      name: "",
+      logo: ""
+    },
+    mode: "all"
   });
 
   const onSubmit = (data: z.infer<typeof ManufacturerFormSchema>) => {
+    console.log(data);
     createManufacturer(data);
-    reset();
   };
 
   return (
@@ -63,6 +72,15 @@ const Manufacturers = () => {
               <span className="font-bold text-lg text-gray-500 self-start mb-4">
                 Create a new manufacturer
               </span>
+              <div
+                className="col-span-5 w-[40%] h-60 rounded-full bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6 flex flex-col items-center justify-center border-gray-200 py-3 dark:!border-navy-700 cursor-pointer"
+                onClick={() => fileRef.current?.click()}
+              >
+                <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                  Upload logo
+                </h4>
+              </div>
               <InputField
                 variant="auth"
                 extra="mb-3"
@@ -74,6 +92,14 @@ const Manufacturers = () => {
                 error={errors.name}
                 register={register}
                 disabled={loading}
+              />
+              <FileField
+                variant="auth"
+                extra="mb-3"
+                name="logo"
+                error={errors.logo}
+                register={register}
+                ref={fileRef}
               />
               <InputField
                 variant="auth"
@@ -89,7 +115,7 @@ const Manufacturers = () => {
               />
 
               <button
-                className="w-1/2 self-end linear rounded-md bg-brand-500 text-white px-3 py-2 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+                className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
                 disabled={loading}
               >
                 create manufacturer

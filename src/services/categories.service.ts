@@ -25,13 +25,10 @@ export class CategoryService {
     });
   };
 
-  updateCategory = async (
-    data: z.infer<typeof CategoryFormSchema>,
-    id: string,
-  ) => {
+  updateCategory = async (data: z.infer<typeof CategoryFormSchema>) => {
     return await this.instance.put("/update", data, {
       headers: getAuthorizationHeader(),
-      params: { id },
+      params: { id: [data.id] },
     });
   };
 

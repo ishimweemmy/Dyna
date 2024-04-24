@@ -88,6 +88,29 @@ const CategoryFormSchema = z.object({
   ),
 });
 
+const UpdateCategoryFormSchema = z.object({
+  id: z.string().readonly(),
+  name: z
+    .string()
+    .min(3, { message: "category name can't go below 3 characters" })
+    .max(30, { message: "category name can't exceed 30 characters" }),
+  description: z
+    .string()
+    .min(3, "category description can't go below 3 characters"),
+  subCategories: z.array(
+    z.object({
+      id: z.string().readonly(),
+      name: z
+        .string()
+        .min(3, { message: "sub category name can't go below 3 characters" })
+        .max(30, { message: "sub category name can't exceed 30 characters" }),
+      description: z
+        .string()
+        .min(3, "sub category description can't go below 3 characters"),
+    }),
+  ),
+});
+
 const ManufacturerFormSchema = z.object({
   name: z
     .string()
@@ -96,7 +119,7 @@ const ManufacturerFormSchema = z.object({
   description: z
     .string()
     .min(3, "manufacturer description can't go below 3 characters"),
-  file: z.instanceof(File, { message: "You should input a file" }),
+  logo: z.any(),
 });
 
 export {
@@ -106,5 +129,6 @@ export {
   ForgotPasswordFormSchema,
   VerifyEmailFormSchema,
   CategoryFormSchema,
+  UpdateCategoryFormSchema,
   ManufacturerFormSchema,
 };
