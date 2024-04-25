@@ -1,7 +1,5 @@
 import { getAuthorizationHeader } from "@/lib/utils";
-import { ManufacturerFormSchema } from "@/types/form-schemas";
 import axios, { AxiosInstance } from "axios";
-import { z } from "zod";
 
 export class ManufacturerService {
   protected instance: AxiosInstance;
@@ -14,32 +12,28 @@ export class ManufacturerService {
   }
 
   getManufacturers = async () => {
-    return await this.instance.get("/", {
+    return await this.instance.get("/get", {
       headers: getAuthorizationHeader(),
     });
   };
 
-  createManufacturer = async (data: z.infer<typeof ManufacturerFormSchema>) => {
+  createManufacturer = async (data: FormData) => {
     return await this.instance.post("/create", data, {
       headers: getAuthorizationHeader(),
     });
   };
 
   updateManufacturer = async (
-    data: z.infer<typeof ManufacturerFormSchema>,
+    data: FormData,
     id: string,
   ) => {
-    return await this.instance.put("/update", data, {
+    return await this.instance.put(`/update/${id}`, data, {
       headers: getAuthorizationHeader(),
-      params: { id },
     });
   };
 
   removeManufacturer = async (id: string) => {
-    return await this.instance.delete("/delete", {
-      params: {
-        id,
-      },
+    return await this.instance.delete(`/delete/${id}`, {
       headers: getAuthorizationHeader(),
     });
   };

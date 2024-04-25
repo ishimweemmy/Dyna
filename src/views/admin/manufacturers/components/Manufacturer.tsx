@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 import Card from "src/components/card";
 import InputField from "@/components/fields/InputField";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -11,37 +11,68 @@ import { TbTrash } from "react-icons/tb";
 import useManufacturers from "@/hooks/useManufacturers";
 import { IoRefresh } from "react-icons/io5";
 import { MdFileUpload } from "react-icons/md";
+import FileField from "@/components/fields/FileField";
 
-const Manufacturer: FC<TManufacturer> = ({ id, name, description, file }) => {
+const Manufacturer: FC<TManufacturer> = ({
+  id,
+  name,
+  description,
+  logoUrl,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { loading, updateManufacturer, deleteManufacturer } =
     useManufacturers();
 
+  const fileRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     reset,
+    control,
+    watch,
   } = useForm<z.infer<typeof ManufacturerFormSchema>>({
     resolver: zodResolver(ManufacturerFormSchema),
     defaultValues: {
       name,
       description,
-      file,
-    },
+      logo: logoUrl
+    }
   });
 
+  const watchedProfilePic = watch("logo");
+  const [logo, setLogo] = useState(logoUrl);
+
+  useEffect(() => {
+    if (watchedProfilePic) {
+      const newValue = typeof watchedProfilePic != "string" ? URL.createObjectURL(watchedProfilePic) : watchedProfilePic;
+      setLogo(newValue);
+
+      return () => URL.revokeObjectURL(newValue);
+    }
+  }, [watchedProfilePic]);
+
   const onSubmit = (data: z.infer<typeof ManufacturerFormSchema>) => {
-    updateManufacturer(data, id);
-    reset();
+    const { name, logo, description } = data;
+    console.log(logo)
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("file", logo);
+    updateManufacturer(formData, id);
   };
 
   return (
-    <Card extra="w-full p-5 gap-4 ring-1 cursor-pointer" onClick={onOpen}>
-      <div className="flex flex-col items-start justify-center gap-2">
-        <span className="text-lg font-semibold">{name}</span>
-        <span className="text-base font-semibold text-gray-700">
+    <Card
+      extra="w-full p-5 gap-4 ring-1 cursor-pointer !flex-row"
+      onClick={onOpen}
+    >
+      <img src={logoUrl} alt="" className="w-[30%] h-full rounded-full" />
+      <div className="w-[60%] flex flex-col items-start justify-center">
+        <span className="text-base font-semibold">{name}</span>
+        <span className="text-sm font-semibold text-gray-700">
           {description}
         </span>
       </div>
@@ -79,6 +110,21 @@ const Manufacturer: FC<TManufacturer> = ({ id, name, description, file }) => {
                 <span className="text-sm">Refresh</span>
               </button>
             </div>
+            <div
+              className="col-span-5 w-[40%] h-60 rounded-full bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6 flex flex-col items-center justify-center border-gray-200 dark:!border-navy-700 cursor-pointer overflow-clip"
+              onClick={() => fileRef.current?.click()}
+            >
+              {logo ? (
+                <img src={logo} alt="" className="w-full h-full rounded-full" />
+              ) : (
+                <>
+                  <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                  <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                    Upload logo
+                  </h4>
+                </>
+              )}
+            </div>
             <InputField
               variant="auth"
               extra="mb-3"
@@ -90,6 +136,16 @@ const Manufacturer: FC<TManufacturer> = ({ id, name, description, file }) => {
               error={errors.name}
               register={register}
               disabled={loading}
+            />
+            <FileField
+              variant="auth"
+              extra="mb-3 hidden"
+              name="logo"
+              error={errors.logo}
+              ref={fileRef}
+              control={control}
+              accept="image/jpg, image/jpeg, image/png"
+              defaultValue={logoUrl}
             />
             <InputField
               variant="auth"
@@ -103,25 +159,12 @@ const Manufacturer: FC<TManufacturer> = ({ id, name, description, file }) => {
               register={register}
               disabled={loading}
             />
-            <div className="col-span-5 w-[40%] rounded-xl bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6">
-              <button className="flex h-full w-full flex-col items-center justify-center rounded-xl border-[2px] border-dashed border-gray-200 py-3 dark:!border-navy-700 lg:pb-0">
-                <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
-                <h4 className="text-xl font-bold text-brand-500 dark:text-white">
-                  update product's images
-                </h4>
-                <p className="mt-2 text-sm font-medium text-gray-600">
-                  PNG, JPG and GIF files are allowed
-                </p>
-                <p className="mt-2 text-sm font-medium text-gray-600">
-                  Note that the first image will be the cover image
-                </p>
-              </button>
-            </div>
+
             <button
-              className="w-1/2 linear rounded-md bg-brand-500 text-white px-3 py-2 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
-              disabled={loading}
+              className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+              disabled={loading || !isDirty}
             >
-              Update manufacturer
+              udpate manufacturer
             </button>
           </form>
         </ModalContent>

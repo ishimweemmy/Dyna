@@ -29,19 +29,31 @@ const Manufacturers = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
+    watch
   } = useForm<z.infer<typeof ManufacturerFormSchema>>({
     resolver: zodResolver(ManufacturerFormSchema),
-    defaultValues: {
-      description: "",
-      name: "",
-      logo: ""
-    },
-    mode: "all"
   });
 
+  const watchedProfilePic = watch("logo");
+  const [logo, setLogo] = useState("");
+
+  useEffect(() => {
+    if (watchedProfilePic) {
+      const newValue = typeof watchedProfilePic != "string" ? URL.createObjectURL(watchedProfilePic) : watchedProfilePic;
+      setLogo(newValue);
+
+      return () => URL.revokeObjectURL(newValue);
+    }
+  }, [watchedProfilePic]);
+
   const onSubmit = (data: z.infer<typeof ManufacturerFormSchema>) => {
-    console.log(data);
-    createManufacturer(data);
+    const { logo, description, name } = data;
+    const formData = new FormData();
+    formData.append("file", logo);
+    formData.append("name", name);
+    formData.append("description", description);
+    createManufacturer(formData);
   };
 
   return (
@@ -73,13 +85,19 @@ const Manufacturers = () => {
                 Create a new manufacturer
               </span>
               <div
-                className="col-span-5 w-[40%] h-60 rounded-full bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6 flex flex-col items-center justify-center border-gray-200 py-3 dark:!border-navy-700 cursor-pointer"
+                className="col-span-5 w-[40%] h-60 rounded-full bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6 flex flex-col items-center justify-center border-gray-200 dark:!border-navy-700 cursor-pointer"
                 onClick={() => fileRef.current?.click()}
               >
-                <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
-                <h4 className="text-xl font-bold text-brand-500 dark:text-white">
-                  Upload logo
-                </h4>
+                              {logo ? (
+                <img src={logo} alt="" className="w-full h-full rounded-full" />
+              ) : (
+                <>
+                  <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                  <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                    Upload logo
+                  </h4>
+                </>
+              )}
               </div>
               <InputField
                 variant="auth"
@@ -95,11 +113,12 @@ const Manufacturers = () => {
               />
               <FileField
                 variant="auth"
-                extra="mb-3"
+                extra="mb-3 hidden"
                 name="logo"
                 error={errors.logo}
-                register={register}
                 ref={fileRef}
+                control={control}
+                defaultValue=""
               />
               <InputField
                 variant="auth"

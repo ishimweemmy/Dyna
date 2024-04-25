@@ -30,7 +30,7 @@ type TCategory = {
   subCategories: TSubCategory[];
 };
 
-type TManufacturer = Omit<TCategory, "subCategories"> & { file: File };
+type TManufacturer = Omit<TCategory, "subCategories"> & { logoUrl: string };
 
 type TInputField = {
   id: string;

@@ -37,7 +37,7 @@ const useCategories = () => {
     id: string,
   ) => {
     withLoading(async () => {
-      const response = await categoryService.updateCategory(data);
+      const response = await categoryService.updateCategory(data, id);
 
       if (response.status == 200) {
         toast.success("category updated successfully!");

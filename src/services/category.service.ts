@@ -25,18 +25,17 @@ export class CategoryService {
     });
   };
 
-  updateCategory = async (data: z.infer<typeof CategoryFormSchema>) => {
-    return await this.instance.put("/update", data, {
+  updateCategory = async (
+    data: z.infer<typeof CategoryFormSchema>,
+    id: string,
+  ) => {
+    return await this.instance.put(`/update/${id}`, data, {
       headers: getAuthorizationHeader(),
-      params: { id: [data.id] },
     });
   };
 
   removeCategory = async (id: string) => {
-    return await this.instance.delete("/delete", {
-      params: {
-        id,
-      },
+    return await this.instance.delete(`/delete/${id}`, {
       headers: getAuthorizationHeader(),
     });
   };

@@ -2,10 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import useLoading from "./useLoading";
 import { manufacturerService } from "@/services";
 import { toast } from "react-toastify";
-import { z } from "zod";
-import { ManufacturerFormSchema } from "@/types/form-schemas";
 import {
-  addManufacturer,
   setManufacturers,
 } from "@/features/manufacturer/manufacturerSlice";
 
@@ -24,19 +21,19 @@ const useManufacturers = () => {
     });
   };
 
-  const createManufacturer = (data: z.infer<typeof ManufacturerFormSchema>) => {
+  const createManufacturer = (data: FormData) => {
     withLoading(async () => {
       const response = await manufacturerService.createManufacturer(data);
 
       if (response.status == 201) {
-        dispatch(addManufacturer(response.data.data));
         toast.success("successfully created a new manufacturer");
+        getManufacturers()
       }
     });
   };
 
   const updateManufacturer = (
-    data: z.infer<typeof ManufacturerFormSchema>,
+    data: FormData,
     id: string,
   ) => {
     withLoading(async () => {

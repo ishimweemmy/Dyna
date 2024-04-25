@@ -111,6 +111,9 @@ const UpdateCategoryFormSchema = z.object({
   ),
 });
 
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 3; // 3MB file
+const ACCEPTED_FORMATS = ["image/jpeg", "image/jpg", "image/png"];
+
 const ManufacturerFormSchema = z.object({
   name: z
     .string()
@@ -119,7 +122,20 @@ const ManufacturerFormSchema = z.object({
   description: z
     .string()
     .min(3, "manufacturer description can't go below 3 characters"),
-  logo: z.any(),
+  logo: z
+    .instanceof(File)
+    .refine(
+      (file) => {
+        return !file || file.size <= MAX_UPLOAD_SIZE;
+      },
+      { message: "Image size should be less than 3MB" },
+    )
+    .refine(
+      (file) => {
+        return ACCEPTED_FORMATS.includes(file.type);
+      },
+      { message: "Invalid format, only jpeg, jpg and png images are allowed" },
+    ).or(z.string()),
 });
 
 export {
