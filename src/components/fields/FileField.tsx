@@ -10,11 +10,10 @@ type TInputField = {
   extra: string;
   control: any;
   accept?: string;
-  defaultValue: string;
 };
 
 const FileField = forwardRef<HTMLInputElement, TInputField>(
-  ({ name, error, extra, control, accept, defaultValue }, ref) => {
+  ({ name, error, extra, control, accept }, ref) => {
     const [fieldValue, setFieldValue] = useState("");
 
     return (
@@ -24,7 +23,6 @@ const FileField = forwardRef<HTMLInputElement, TInputField>(
         <Controller
           name={name}
           control={control}
-          defaultValue={defaultValue}
           render={({ field }) => {
             return (
               <input

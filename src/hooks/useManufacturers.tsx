@@ -2,9 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import useLoading from "./useLoading";
 import { manufacturerService } from "@/services";
 import { toast } from "react-toastify";
-import {
-  setManufacturers,
-} from "@/features/manufacturer/manufacturerSlice";
+import { setManufacturers } from "@/features/manufacturer/manufacturerSlice";
 
 const useManufacturers = () => {
   const { loading, withLoading } = useLoading();
@@ -27,15 +25,12 @@ const useManufacturers = () => {
 
       if (response.status == 201) {
         toast.success("successfully created a new manufacturer");
-        getManufacturers()
+        getManufacturers();
       }
     });
   };
 
-  const updateManufacturer = (
-    data: FormData,
-    id: string,
-  ) => {
+  const updateManufacturer = (data: FormData, id: string) => {
     withLoading(async () => {
       const response = await manufacturerService.updateManufacturer(data, id);
 

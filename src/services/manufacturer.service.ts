@@ -23,10 +23,7 @@ export class ManufacturerService {
     });
   };
 
-  updateManufacturer = async (
-    data: FormData,
-    id: string,
-  ) => {
+  updateManufacturer = async (data: FormData, id: string) => {
     return await this.instance.put(`/update/${id}`, data, {
       headers: getAuthorizationHeader(),
     });

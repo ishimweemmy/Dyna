@@ -135,7 +135,8 @@ const ManufacturerFormSchema = z.object({
         return ACCEPTED_FORMATS.includes(file.type);
       },
       { message: "Invalid format, only jpeg, jpg and png images are allowed" },
-    ).or(z.string()),
+    )
+    .or(z.string()),
 });
 
 export {

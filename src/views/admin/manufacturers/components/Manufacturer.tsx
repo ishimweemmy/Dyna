@@ -38,8 +38,8 @@ const Manufacturer: FC<TManufacturer> = ({
     defaultValues: {
       name,
       description,
-      logo: logoUrl
-    }
+      logo: logoUrl,
+    },
   });
 
   const watchedProfilePic = watch("logo");
@@ -47,7 +47,10 @@ const Manufacturer: FC<TManufacturer> = ({
 
   useEffect(() => {
     if (watchedProfilePic) {
-      const newValue = typeof watchedProfilePic != "string" ? URL.createObjectURL(watchedProfilePic) : watchedProfilePic;
+      const newValue =
+        typeof watchedProfilePic != "string"
+          ? URL.createObjectURL(watchedProfilePic)
+          : watchedProfilePic;
       setLogo(newValue);
 
       return () => URL.revokeObjectURL(newValue);
@@ -56,7 +59,6 @@ const Manufacturer: FC<TManufacturer> = ({
 
   const onSubmit = (data: z.infer<typeof ManufacturerFormSchema>) => {
     const { name, logo, description } = data;
-    console.log(logo)
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -69,7 +71,7 @@ const Manufacturer: FC<TManufacturer> = ({
       extra="w-full p-5 gap-4 ring-1 cursor-pointer !flex-row"
       onClick={onOpen}
     >
-      <img src={logoUrl} alt="" className="w-[30%] h-full rounded-full" />
+      <img src={logoUrl} alt="manufacturer logo image" className="max-w-full w-24 h-24 rounded-full align-middle font-extralight object-cover object-top" />
       <div className="w-[60%] flex flex-col items-start justify-center">
         <span className="text-base font-semibold">{name}</span>
         <span className="text-sm font-semibold text-gray-700">
@@ -115,7 +117,7 @@ const Manufacturer: FC<TManufacturer> = ({
               onClick={() => fileRef.current?.click()}
             >
               {logo ? (
-                <img src={logo} alt="" className="w-full h-full rounded-full" />
+                <img src={logo} alt="logo image" className="max-w-full w-full h-full rounded-full font-extralight align-middle  object-cover object-top" />
               ) : (
                 <>
                   <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
@@ -145,7 +147,6 @@ const Manufacturer: FC<TManufacturer> = ({
               ref={fileRef}
               control={control}
               accept="image/jpg, image/jpeg, image/png"
-              defaultValue={logoUrl}
             />
             <InputField
               variant="auth"

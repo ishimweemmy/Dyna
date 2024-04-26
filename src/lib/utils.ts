@@ -40,7 +40,7 @@ const parseJwt = (token: string): Record<string, any> | null => {
 
 export const isTokenExpired = (
   currentUserCookie: string | undefined,
-  expirationTimeBuffer: number = 0,
+  expirationTimeBuffer: number = 5,
 ): boolean => {
   try {
     if (!currentUserCookie) {

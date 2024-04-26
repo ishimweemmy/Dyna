@@ -30,9 +30,15 @@ const Manufacturers = () => {
     handleSubmit,
     formState: { errors },
     control,
-    watch
+    reset,
+    watch,
   } = useForm<z.infer<typeof ManufacturerFormSchema>>({
     resolver: zodResolver(ManufacturerFormSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      logo: ""
+    }
   });
 
   const watchedProfilePic = watch("logo");
@@ -40,7 +46,11 @@ const Manufacturers = () => {
 
   useEffect(() => {
     if (watchedProfilePic) {
-      const newValue = typeof watchedProfilePic != "string" ? URL.createObjectURL(watchedProfilePic) : watchedProfilePic;
+      console.log(watchedProfilePic)
+      const newValue =
+        typeof watchedProfilePic != "string"
+          ? URL.createObjectURL(watchedProfilePic)
+          : watchedProfilePic;
       setLogo(newValue);
 
       return () => URL.revokeObjectURL(newValue);
@@ -54,6 +64,12 @@ const Manufacturers = () => {
     formData.append("name", name);
     formData.append("description", description);
     createManufacturer(formData);
+  };
+
+  const handleCancel = () => {
+    reset();
+    setLogo("")
+    onClose();
   };
 
   return (
@@ -88,16 +104,20 @@ const Manufacturers = () => {
                 className="col-span-5 w-[40%] h-60 rounded-full bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6 flex flex-col items-center justify-center border-gray-200 dark:!border-navy-700 cursor-pointer"
                 onClick={() => fileRef.current?.click()}
               >
-                              {logo ? (
-                <img src={logo} alt="" className="w-full h-full rounded-full" />
-              ) : (
-                <>
-                  <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
-                  <h4 className="text-xl font-bold text-brand-500 dark:text-white">
-                    Upload logo
-                  </h4>
-                </>
-              )}
+                {logo ? (
+                  <img
+                    src={logo}
+                    alt=""
+                    className="max-w-full w-full h-full rounded-full align-middle font-extralight object-cover object-top"
+                  />
+                ) : (
+                  <>
+                    <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                    <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                      Upload logo
+                    </h4>
+                  </>
+                )}
               </div>
               <InputField
                 variant="auth"
@@ -118,7 +138,6 @@ const Manufacturers = () => {
                 error={errors.logo}
                 ref={fileRef}
                 control={control}
-                defaultValue=""
               />
               <InputField
                 variant="auth"
@@ -132,13 +151,22 @@ const Manufacturers = () => {
                 register={register}
                 disabled={loading}
               />
-
-              <button
-                className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
-                disabled={loading}
-              >
-                create manufacturer
-              </button>
+              <div className="w-full flex items-center justify-center gap-4">
+                <button
+                  className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+                  disabled={loading}
+                  type="button"
+                  onClick={handleCancel}
+                >
+                  cancel
+                </button>
+                <button
+                  className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+                  disabled={loading}
+                >
+                  create manufacturer
+                </button>
+              </div>
             </form>
           </ModalContent>
         </Modal>
