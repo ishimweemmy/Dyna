@@ -71,7 +71,11 @@ const Manufacturer: FC<TManufacturer> = ({
       extra="w-full p-5 gap-4 ring-1 cursor-pointer !flex-row"
       onClick={onOpen}
     >
-      <img src={logoUrl} alt="manufacturer logo image" className="max-w-full w-24 h-24 rounded-full align-middle font-extralight object-cover object-top" />
+      <img
+        src={logoUrl}
+        alt="manufacturer logo image"
+        className="max-w-full w-24 h-24 rounded-full align-middle font-extralight object-cover object-top"
+      />
       <div className="w-[60%] flex flex-col items-start justify-center">
         <span className="text-base font-semibold">{name}</span>
         <span className="text-sm font-semibold text-gray-700">
@@ -117,7 +121,11 @@ const Manufacturer: FC<TManufacturer> = ({
               onClick={() => fileRef.current?.click()}
             >
               {logo ? (
-                <img src={logo} alt="logo image" className="max-w-full w-full h-full rounded-full font-extralight align-middle  object-cover object-top" />
+                <img
+                  src={logo}
+                  alt="logo image"
+                  className="max-w-full w-full h-full rounded-full font-extralight align-middle  object-cover object-top"
+                />
               ) : (
                 <>
                   <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />

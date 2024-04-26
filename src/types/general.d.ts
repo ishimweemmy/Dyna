@@ -47,3 +47,17 @@ type TInputField = {
   register: UseFormRegister<any>;
   inputStyles?: string;
 };
+
+type TSelectOption<TValue> = {
+  label: string;
+  value: TValue[];
+};
+
+type TSelectField = Pick<
+  TInputField,
+  "inputStyles" | "name" | "error" | "extra" | "label" | "id"
+> & {
+  isMulti: boolean;
+  options: TSelectOption[];
+  control: any;
+};

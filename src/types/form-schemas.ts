@@ -139,6 +139,76 @@ const ManufacturerFormSchema = z.object({
     .or(z.string()),
 });
 
+const AVAILABLE_STATUSES = ["AVAILABLE", "NOT AVAILABLE"];
+
+const CreateProductFormSchema = z.object({
+  brand: z
+    .string()
+    .min(3, { message: "brand name can't go below 3 characters" })
+    .max(30, { message: "brand name can't exceed 30 characters" }),
+  categories: z.array(
+    z.object({
+      label: z.string(),
+      value: z.string(),
+    }),
+  ),
+  company: z
+    .string()
+    .min(3, { message: "company name can't go below 3 characters" })
+    .max(30, { message: "company name can't exceed 30 characters" }),
+  crossedPrice: z.number().default(0),
+  discount: z.number().default(0),
+  instock: z.number().default(0),
+  manufacturer: z.object({
+    label: z.string(),
+    value: z.any(),
+  }),
+  name: z
+    .string()
+    .min(3, { message: "product name can't go below 3 characters" })
+    .max(30, { message: "product name can't exceed 30 characters" }),
+  price: z.number().default(100),
+  status: z.string().refine(
+    (status) => {
+      return AVAILABLE_STATUSES.includes(status);
+    },
+    { message: "Invalid status" },
+  ),
+  subCategories: z.array(
+    z.object({
+      label: z.string(),
+      value: z.any(),
+    }),
+  ),
+  warranty: z.string().optional(),
+  illustrations: z.array(
+    z.object({
+      file: z
+        .instanceof(File)
+        .refine(
+          (file) => {
+            return !file || file.size <= MAX_UPLOAD_SIZE;
+          },
+          { message: "Image size should be less than 3MB" },
+        )
+        .refine(
+          (file) => {
+            return ACCEPTED_FORMATS.includes(file.type);
+          },
+          {
+            message:
+              "Invalid format, only jpeg, jpg and png images are allowed",
+          },
+        )
+        .or(z.string()),
+      description: z
+        .string()
+        .min(3, "manufacturer description can't go below 3 characters"),
+      color: z.string().min(3, "color can't go below 3 characters"),
+    }),
+  ),
+});
+
 export {
   RegisterFormSchema,
   LoginFormSchema,
@@ -148,4 +218,5 @@ export {
   CategoryFormSchema,
   UpdateCategoryFormSchema,
   ManufacturerFormSchema,
+  CreateProductFormSchema,
 };

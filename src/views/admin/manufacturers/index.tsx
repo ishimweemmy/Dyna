@@ -37,8 +37,8 @@ const Manufacturers = () => {
     defaultValues: {
       name: "",
       description: "",
-      logo: ""
-    }
+      logo: "",
+    },
   });
 
   const watchedProfilePic = watch("logo");
@@ -46,7 +46,7 @@ const Manufacturers = () => {
 
   useEffect(() => {
     if (watchedProfilePic) {
-      console.log(watchedProfilePic)
+      console.log(watchedProfilePic);
       const newValue =
         typeof watchedProfilePic != "string"
           ? URL.createObjectURL(watchedProfilePic)
@@ -68,7 +68,7 @@ const Manufacturers = () => {
 
   const handleCancel = () => {
     reset();
-    setLogo("")
+    setLogo("");
     onClose();
   };
 
