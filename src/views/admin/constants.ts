@@ -10,3 +10,8 @@ export const SHIPMENT_STATUS = {
   in_transit: "in_transit", //The shipment is on its way to the destination.
   delivered: "delivered", //The shipment has been successfully delivered to the customer.
 };
+
+export const AVAILABILITY_STATUSES = [
+  { label: "AVAILABLE", value: "AVAILABLE" },
+  { label: "UNAVAILABLE", value: "UNAVAILABLE" },
+];

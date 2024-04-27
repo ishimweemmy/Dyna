@@ -14,8 +14,9 @@ const SelectField: FC<TSelectField> = ({
   control,
   label,
   id,
+  disabled,
 }) => {
-  console.log(options)
+  console.log(options);
   return (
     <div className={`w-full ${extra}`}>
       {label && (
@@ -63,16 +64,25 @@ const SelectField: FC<TSelectField> = ({
               option: (styles, { isSelected, isFocused }) => {
                 return {
                   ...styles,
-                  backgroundColor: isSelected || isFocused ? "pink" : ""
-                }
-              }
+                  backgroundColor: isSelected || isFocused ? "pink" : "",
+                };
+              },
             }}
             ref={ref}
-            value={isMulti ? options.filter((c) => value.includes(c.value)) : options.find(c => c.value === value)}
-            onChange={(val) => isMulti ? onChange(val.map((c: any) => c.value)) : onChange(val.value)}
+            value={
+              isMulti
+                ? options.filter((c) => value.includes(c.value))
+                : options.find((c) => c.value === value)
+            }
+            onChange={(val) =>
+              isMulti
+                ? onChange(val.map((c: any) => c.value))
+                : onChange(val.value)
+            }
             options={options}
             isMulti={isMulti}
             id={id}
+            isDisabled={disabled}
           />
         )}
       />

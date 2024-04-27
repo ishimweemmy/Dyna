@@ -1,24 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/modal";
 import ProductsTable from "../tables/components/ProductsTable";
 import { productsData } from "../tables/variables/tableDataOrder";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdFileUpload } from "react-icons/md";
 import InputField from "@/components/fields/InputField";
 import { CreateProductFormSchema } from "@/types/form-schemas";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import useManufacturers from "@/hooks/useManufacturers";
 import useCategories from "@/hooks/useCategories";
-import { useEffect } from "react";
+import { createRef, useEffect, useState } from "react";
 import SelectField from "@/components/fields/SelectField";
+import { AVAILABILITY_STATUSES } from "../constants";
+import useProducts from "@/hooks/useProducts";
+import FileField from "@/components/fields/FileField";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const Products = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { manufacturers, getManufacturers } = useManufacturers();
   const { categories, getCategories } = useCategories();
+  const { createProduct, products, loading, createIllustrations } = useProducts();
+  const [newProductId, setNewProductId] = useState("")
 
   useEffect(() => {
     getCategories();
@@ -31,37 +39,89 @@ const Products = () => {
     formState: { errors },
     reset,
     control,
-    watch
-  } = useForm<z.infer<typeof CreateProductFormSchema>>({
-    resolver: zodResolver(CreateProductFormSchema),
+    watch,
+    setError,
+  } = useForm<Omit<z.infer<typeof CreateProductFormSchema>, "illustrations">>({
+    resolver: zodResolver(
+      CreateProductFormSchema.omit({ illustrations: true }),
+    ),
     defaultValues: {
       brand: "",
       categories: [],
-      manufacturer: {
-        label: manufacturers[0].name,
-        value: manufacturers[0].id
-      },
+      manufacturer: "",
       subCategories: [],
       company: "",
       crossedPrice: 0,
       discount: 0,
-      illustrations: [],
       instock: 0,
       name: "",
       price: 0,
-      status: "AVAILABLE",
+      status: AVAILABILITY_STATUSES[0].value,
       warranty: "",
     },
+    mode: "onChange",
   });
 
-  const watchCategories = watch("categories")
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+    reset: reset2,
+    control: control2,
+    watch: watch2,
+    setError: setError2,
+  } = useForm<Pick<z.infer<typeof CreateProductFormSchema>, "illustrations">>({
+    resolver: zodResolver(
+      CreateProductFormSchema.pick({ illustrations: true }),
+    ),
+    defaultValues: {
+      illustrations: [],
+    },
+    mode: "onChange",
+  });
+
+  const watchCategories = watch("categories");
 
   const subCategories = categories
-  .filter(category => (watchCategories as unknown as string).includes(category.id))
-  .flatMap(category => category.subCategories.map(subCat => ({ label: subCat.name, value: subCat.id })));
+    .filter((category) => watchCategories.includes(category.id))
+    .flatMap((category) =>
+      category.subCategories.map((subCat) => ({
+        label: subCat.name,
+        value: subCat.id,
+      })),
+    );
 
-  const onSubmit = (data: z.infer<typeof CreateProductFormSchema>) => {
+  const onSubmit = async(
+    data: Omit<z.infer<typeof CreateProductFormSchema>, "illustrations">,
+  ) => {
+    const {categories, ...rest} = data
+    const productId = await createProduct(rest)
+    setNewProductId(productId)
+  };
+
+  const { fields, append, remove } = useFieldArray({
+    control: control2,
+    name: "illustrations",
+  });
+
+  const watchIllustrations = watch2("illustrations");
+
+  const controlledIllFields = fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchIllustrations[index],
+    };
+  });
+
+  const onIllustrationsSubmit = (
+    data: Pick<z.infer<typeof CreateProductFormSchema>, "illustrations">,
+  ) => {
     console.log(data);
+    const formData = new FormData()
+    data.illustrations.forEach(illustration => {
+      formData.append("files", illustration.file as File, `${illustration.color}-${illustration.description}`)
+    })
+    createIllustrations(newProductId, formData, onClose)
   };
 
   const handleCancel = () => {
@@ -87,7 +147,7 @@ const Products = () => {
         <ModalOverlay />
         <ModalContent
           className="w-full py-8 px-10 flex flex-col items-start justify-center gap-4 bg-lightPrimary"
-          maxWidth={1000}
+          maxWidth={watchIllustrations.length > 2 ? "1500" : "1000"}
         >
           <div className="w-full flex items-center justify-between border-b py-3">
             <span className="font-bold text-black/50">
@@ -95,12 +155,150 @@ const Products = () => {
             </span>
             <MdClose onClick={onClose} className="cursor-pointer" />
           </div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-            className="w-full flex justify-center items-center md:pl-4"
-          >
-            <fieldset className="w-full grid grid-cols-2 gap-x-4">
+          {newProductId ? (
+            <motion.form
+              initial={{ opacity: 0, x: "var(--initial-x)" }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className={`w-full md:pl-4 flex flex-col items-center justify-center gap-10 [initial-x:800px]`}
+              onSubmit={handleSubmit2(onIllustrationsSubmit)}
+              noValidate
+            >
+              <div
+                className={cn(
+                  "w-full",
+                  watchIllustrations.length > 2 && "grid grid-cols-2 gap-10",
+                )}
+              >
+                {controlledIllFields.map((field, idx) => {
+                  const ref = createRef<HTMLInputElement>();
+                  const newValue =
+                    typeof field.file != "string"
+                      ? URL.createObjectURL(field.file)
+                      : field.file;
+                  return (
+                    <div
+                      className="w-full flex items-center justify-between gap-6"
+                      key={field.id}
+                    >
+                      <div
+                        className="col-span-5 w-[40%] h-60 bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6 flex flex-col items-center justify-center border-gray-200 dark:!border-navy-700 cursor-pointer overflow-clip"
+                        onClick={() => ref.current?.click()}
+                      >
+                        {newValue ? (
+                          <img
+                            src={newValue}
+                            alt="logo image"
+                            className="max-w-full w-full h-full font-extralight align-middle  object-cover object-top"
+                          />
+                        ) : (
+                          <>
+                            <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                            <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                              Upload logo
+                            </h4>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="w-[60%] flex flex-col items-center justify-center gap-3">
+                        <FileField
+                          variant="auth"
+                          extra="mb-3 hidden"
+                          name={`illustrations.${idx}.file` as const}
+                          error={
+                            errors2.illustrations &&
+                            errors2.illustrations[idx]?.file
+                          }
+                          ref={ref}
+                          control={control2}
+                          accept="image/jpg, image/jpeg, image/png"
+                        />
+                        <InputField
+                          variant="auth"
+                          extra="mb-3"
+                          label="Product image color*"
+                          placeholder="Enter the product color"
+                          id="color"
+                          name={`illustrations.${idx}.color` as const}
+                          type="text"
+                          error={
+                            errors2.illustrations &&
+                            errors2.illustrations[idx]?.color
+                          }
+                          register={register2}
+                          disabled={loading}
+                        />
+                        <InputField
+                          variant="auth"
+                          extra="mb-3"
+                          label="Product image description*"
+                          placeholder="Enter the product description"
+                          id="description"
+                          name={`illustrations.${idx}.description` as const}
+                          type="text"
+                          error={
+                            errors2.illustrations &&
+                            errors2.illustrations[idx]?.description
+                          }
+                          register={register2}
+                          disabled={loading}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="w-full flex items-center justify-center gap-4">
+                <button
+                  type="button"
+                  className="w-1/2 linear rounded-md border border-brand-500 text-brand-500 px-3 py-2 text-xs font-bold transition duration-200 uppercase active:border-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+                  onClick={() => {
+                    const emptyIllustration = watchIllustrations.find(
+                      (illustration) =>
+                        illustration.description === "" ||
+                        illustration.color === "" ||
+                        illustration.file == "",
+                    );
+                    if (emptyIllustration) {
+                      controlledIllFields.forEach((field, idx) => {
+                        const requiredFields: (keyof ControlledIllustrationField)[] =
+                          ["color", "description", "file"];
+                        requiredFields.forEach((fieldName) => {
+                          if (!field[fieldName]) {
+                            setError2(`illustrations.${idx}.${fieldName}`, {
+                              message: "please fill this field",
+                            });
+                          }
+                        });
+                      });
+                    } else {
+                      append({ file: "", description: "", color: "" });
+                    }
+                  }}
+                  disabled={loading || controlledIllFields.length >= 6}
+                >
+                  Add product image
+                </button>
+                <button
+                  className="w-1/2 linear rounded-md bg-brand-500 text-white px-3 py-2 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+                  disabled={loading || controlledIllFields.length <= 0}
+                  type="submit"
+                >
+                  Complete product creation
+                </button>
+              </div>
+            </motion.form>
+          ) : (
+            <motion.form
+              initial={{ opacity: 0, x: "var(--initial-x)" }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className={`w-full grid grid-cols-2 gap-x-4 md:pl-4 [initial-x:800px]`}
+              noValidate
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <InputField
                 variant="auth"
                 extra="mb-3"
@@ -111,7 +309,7 @@ const Products = () => {
                 type="text"
                 error={errors.brand}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
 
               <SelectField
@@ -141,7 +339,7 @@ const Products = () => {
                 type="text"
                 error={errors.company}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
               <InputField
                 variant="auth"
@@ -153,7 +351,7 @@ const Products = () => {
                 type="number"
                 error={errors.crossedPrice}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
               <InputField
                 variant="auth"
@@ -165,7 +363,7 @@ const Products = () => {
                 type="number"
                 error={errors.discount}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
               <InputField
                 variant="auth"
@@ -174,10 +372,10 @@ const Products = () => {
                 placeholder="Enter the product Units in stock"
                 id="instock"
                 name="instock"
-                type="text"
+                type="number"
                 error={errors.instock}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
 
               <SelectField
@@ -188,13 +386,14 @@ const Products = () => {
                 name="manufacturer"
                 isMulti={false}
                 error={errors.manufacturer}
-                options={manufacturers.map(manufacturer => {
-                  const { name, id} = manufacturer
+                options={manufacturers.map((manufacturer) => {
+                  const { name, id } = manufacturer;
                   return {
                     label: name,
-                    value: id
-                  }
+                    value: id,
+                  };
                 })}
+                disabled={loading}
               />
 
               <InputField
@@ -207,7 +406,7 @@ const Products = () => {
                 type="text"
                 error={errors.name}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
               <InputField
                 variant="auth"
@@ -216,29 +415,29 @@ const Products = () => {
                 placeholder="Enter the product price"
                 id="price"
                 name="price"
-                type="text"
+                type="number"
                 error={errors.price}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
-              <InputField
-                variant="auth"
-                extra="mb-3"
+
+              <SelectField
                 label="Product status*"
-                placeholder="Enter the product status"
+                extra="mb-3"
+                control={control}
                 id="status"
                 name="status"
-                type="text"
+                isMulti={false}
                 error={errors.status}
-                register={register}
-                // disabled={loading}
+                options={AVAILABILITY_STATUSES}
               />
+
               <SelectField
                 label="Product sub category*"
                 extra="mb-3"
                 control={control}
-                id="subCategory"
-                name="subCategory"
+                id="subCategories"
+                name="subCategories"
                 isMulti
                 error={errors.subCategories}
                 options={subCategories}
@@ -247,19 +446,19 @@ const Products = () => {
               <InputField
                 variant="auth"
                 extra="mb-3"
-                label="Product warranty*"
+                label="Product warranty"
                 placeholder="Enter the product warranty"
                 id="warranty"
                 name="warranty"
                 type="text"
                 error={errors.warranty}
                 register={register}
-                // disabled={loading}
+                disabled={loading}
               />
               <div className="w-full flex items-center justify-center gap-4">
                 <button
                   className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
-                  // disabled={loading}
+                  disabled={loading}
                   type="button"
                   onClick={handleCancel}
                 >
@@ -267,13 +466,13 @@ const Products = () => {
                 </button>
                 <button
                   className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
-                  // disabled={loading}
+                  disabled={loading}
                 >
                   Next
                 </button>
               </div>
-            </fieldset>
-          </form>
+            </motion.form>
+          )}
         </ModalContent>
       </Modal>
 

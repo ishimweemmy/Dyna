@@ -55,9 +55,32 @@ type TSelectOption<TValue> = {
 
 type TSelectField = Pick<
   TInputField,
-  "inputStyles" | "name" | "error" | "extra" | "label" | "id"
+  "inputStyles" | "name" | "error" | "extra" | "label" | "id" | "disabled"
 > & {
   isMulti: boolean;
   options: TSelectOption[];
   control: any;
 };
+
+type TProduct = {
+  id: string;
+  brand: string;
+  company: string;
+  crossedPrice: number;
+  discount: number;
+  instock: number;
+  manufacturer: string;
+  name: string;
+  price: number;
+  status: "AVAILABLE" | "UNAVAILABLE";
+  subCategories: string[];
+  warranty: string;
+  illustrations: File[];
+  reviews: [];
+};
+
+interface ControlledIllustrationField {
+  color: string;
+  description: string;
+  file: string;
+}

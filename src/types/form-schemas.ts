@@ -146,40 +146,33 @@ const CreateProductFormSchema = z.object({
     .string()
     .min(3, { message: "brand name can't go below 3 characters" })
     .max(30, { message: "brand name can't exceed 30 characters" }),
-  categories: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    }),
-  ),
+  categories: z
+    .array(z.string())
+    .min(1, { message: "Atleast one category should be selected" }),
   company: z
     .string()
     .min(3, { message: "company name can't go below 3 characters" })
     .max(30, { message: "company name can't exceed 30 characters" }),
-  crossedPrice: z.number().default(0),
-  discount: z.number().default(0),
-  instock: z.number().default(0),
-  manufacturer: z.object({
-    label: z.string(),
-    value: z.any(),
-  }),
+  crossedPrice: z.any().default(0),
+  discount: z.any().default(0),
+  instock: z.any().default(0),
+  manufacturer: z
+    .string()
+    .min(1, { message: "Go to manufacturers and create a manufacturer" }),
   name: z
     .string()
     .min(3, { message: "product name can't go below 3 characters" })
     .max(30, { message: "product name can't exceed 30 characters" }),
-  price: z.number().default(100),
+  price: z.any().default(0),
   status: z.string().refine(
     (status) => {
       return AVAILABLE_STATUSES.includes(status);
     },
     { message: "Invalid status" },
   ),
-  subCategories: z.array(
-    z.object({
-      label: z.string(),
-      value: z.any(),
-    }),
-  ),
+  subCategories: z
+    .array(z.string())
+    .min(1, { message: "Atleast one sub category should be selected" }),
   warranty: z.string().optional(),
   illustrations: z.array(
     z.object({

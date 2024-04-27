@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState: TManufacturer[] = [];
 
 export const manufacturerSlice = createSlice({
-  name: "categories",
+  name: "manufacturers",
   initialState,
   reducers: {
     setManufacturers: (state, action: PayloadAction<TManufacturer[]>) => {
