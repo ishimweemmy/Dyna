@@ -23,13 +23,18 @@ const useProducts = () => {
     });
   };
 
-  const createProduct = (data: Omit<z.infer<typeof CreateProductFormSchema>, "illustrations" | "categories">) => {
+  const createProduct = (
+    data: Omit<
+      z.infer<typeof CreateProductFormSchema>,
+      "illustrations"
+    >,
+  ) => {
     return withLoading(async () => {
       const response = await productService.createProduct(data);
 
       if (response.status == 200) {
         setIsSuccess(true);
-        return response.data.data.id
+        return response.data.data.id;
       }
     });
   };
@@ -57,17 +62,18 @@ const useProducts = () => {
     });
   };
 
-  const createIllustrations = (id: string, illustrations: FormData, onClose: () => void) => {
-    withLoading(async() => {
-      const response = await productService.createProductIllustration(illustrations, id)
+  const createIllustrations = (id: string, illustrations: FormData) => {
+    withLoading(async () => {
+      const response = await productService.createProductIllustration(
+        illustrations,
+        id,
+      );
 
-      if(response.status == 200) {
+      if (response.status == 200) {
         toast.success("successfully created a new product");
-        getProducts()
-        onClose()
       }
-    })
-  }
+    });
+  };
 
   return {
     products,
@@ -77,7 +83,7 @@ const useProducts = () => {
     createProduct,
     updateProduct,
     deleteProduct,
-    createIllustrations
+    createIllustrations,
   };
 };
 

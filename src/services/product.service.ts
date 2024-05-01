@@ -19,23 +19,44 @@ export class ProductService {
     });
   };
 
-  createProduct = async (data: Omit<z.infer<typeof CreateProductFormSchema>, "illustrations" | "categories">) => {
-    const { brand, company, crossedPrice, discount, instock, manufacturer, name, price, status, subCategories, warranty } = data
-    return await this.instance.post("/create", {
+  createProduct = async (
+    data: Omit<
+      z.infer<typeof CreateProductFormSchema>,
+      "illustrations"
+    >,
+  ) => {
+    const {
       brand,
       company,
-      crossed_price: crossedPrice,
+      crossedPrice,
       discount,
       instock,
       manufacturer,
       name,
       price,
       status,
-      sub_category: subCategories,
-      warranty
-    }, {
-      headers: getAuthorizationHeader(),
-    });
+      subCategories,
+      warranty,
+    } = data;
+    return await this.instance.post(
+      "/create",
+      {
+        brand,
+        company,
+        crossed_price: crossedPrice,
+        discount,
+        instock,
+        manufacturer,
+        name,
+        price,
+        status,
+        sub_category: subCategories,
+        warranty,
+      },
+      {
+        headers: getAuthorizationHeader(),
+      },
+    );
   };
 
   createProductIllustration = async (data: FormData, productId: string) => {

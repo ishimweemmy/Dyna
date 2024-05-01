@@ -15,16 +15,12 @@ import FileField from "@/components/fields/FileField";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { AVAILABILITY_STATUSES } from "../../constants";
-import { useLocation, useParams } from "react-router-dom";
 
-const Product = () => {
+const CreateProduct = () => {
   const [newProductId, setNewProductId] = useState("");
   const { createProduct, loading, createIllustrations } = useProducts();
   const { manufacturers } = useManufacturers();
   const { categories } = useCategories();
-  const location = useLocation()
-  const productData = location.state as TProduct
-  
   const {
     register,
     handleSubmit,
@@ -32,23 +28,24 @@ const Product = () => {
     reset,
     control,
     watch,
+    setError,
   } = useForm<Omit<z.infer<typeof CreateProductFormSchema>, "illustrations">>({
     resolver: zodResolver(
       CreateProductFormSchema.omit({ illustrations: true }),
     ),
     defaultValues: {
-      brand: productData.brand ?? "",
-      categories: productData.categories.map((category) => category.id),
-      manufacturer: productData.manufacturer.id,
-      subCategories: productData.subCategories.map(subCat => subCat.id),
-      company: productData.company,
-      crossedPrice: productData.crossed_price,
-      discount: productData.discount,
-      instock: productData.inStock,
-      name: productData.name,
-      price: productData.price,
-      status: productData.status,
-      warranty: productData.warranty,
+      brand: "",
+      categories: [],
+      manufacturer: "",
+      subCategories: [],
+      company: "",
+      crossedPrice: 0,
+      discount: 0,
+      instock: 0,
+      name: "",
+      price: 0,
+      status: AVAILABILITY_STATUSES[0].value,
+      warranty: "",
     },
     mode: "onChange",
   });
@@ -57,6 +54,7 @@ const Product = () => {
     register: register2,
     handleSubmit: handleSubmit2,
     formState: { errors: errors2 },
+    reset: reset2,
     control: control2,
     watch: watch2,
     setError: setError2,
@@ -442,4 +440,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default CreateProduct;

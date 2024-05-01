@@ -16,7 +16,6 @@ const SelectField: FC<TSelectField> = ({
   id,
   disabled,
 }) => {
-  console.log(options);
   return (
     <div className={`w-full ${extra}`}>
       {label && (

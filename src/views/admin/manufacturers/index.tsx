@@ -46,7 +46,6 @@ const Manufacturers = () => {
 
   useEffect(() => {
     if (watchedProfilePic) {
-      console.log(watchedProfilePic);
       const newValue =
         typeof watchedProfilePic != "string"
           ? URL.createObjectURL(watchedProfilePic)

@@ -11,61 +11,34 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import Checkbox from "src/components/checkbox";
-import Product from "../../products/components/Product";
+import { FaProductHunt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-type RowObj = {
-  id: string;
-  date: string;
-  status: "in_stock" | "out_of_stock";
-  units: number;
-  productName: string;
-  revenue: number;
-  images: string[];
-  currency: string;
-  category: string;
-};
-
-const columnHelper = createColumnHelper<RowObj>();
+const columnHelper = createColumnHelper<TProduct>();
 
 export default function ProductsTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  let defaultData = tableData;
   const columns = [
-    columnHelper.accessor("id", {
-      id: "id",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">ID</p>
-      ),
-      cell: (info: any) => (
-        <div className="flex items-center">
-          <Checkbox
-            defaultChecked={false}
-            colorScheme="brandScheme"
-            me="10px"
-          />
-          <p className="ml-3 text-sm font-bold text-navy-700 dark:text-white">
-            {info.getValue()}
-          </p>
-        </div>
-      ),
-    }),
-    columnHelper.accessor("images", {
-      id: "images",
+    columnHelper.accessor("illustrations", {
+      id: "illustrations",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">IMAGE</p>
       ),
-      cell: (info) => (
-        <img
-          src={info.getValue()[0]}
-          alt="product image"
-          className="w-14 h-14"
-        />
-      ),
+      cell: (info) => {
+        return info.getValue().length > 0 && info.getValue()[0].imageUrl ? (
+          <img
+            src={info.getValue()[0].imageUrl}
+            alt="product image"
+            className="w-14 h-14"
+          />
+        ) : (
+          <FaProductHunt />
+        );
+      },
     }),
-    columnHelper.accessor("productName", {
-      id: "productName",
+    columnHelper.accessor("name", {
+      id: "name",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           PRODUCT NAME
@@ -77,12 +50,23 @@ export default function ProductsTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor("date", {
-      id: "date",
+    columnHelper.accessor("manufacturer", {
+      id: "manufacturer",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
-          CREATED AT
+          MANUFACTURER
         </p>
+      ),
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700 dark:text-white">
+          {info.getValue().name}
+        </p>
+      ),
+    }),
+    columnHelper.accessor("brand", {
+      id: "brand",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 dark:text-white">BRAND</p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -99,7 +83,7 @@ export default function ProductsTable(props: { tableData: any }) {
       ),
       cell: (info) => (
         <div className="flex items-center">
-          {info.getValue() === "in_stock" ? (
+          {info.getValue() === "AVAILABLE" ? (
             <>
               <MdCheckCircle className="text-green-500 me-1 dark:text-green-300" />
               <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -117,11 +101,11 @@ export default function ProductsTable(props: { tableData: any }) {
         </div>
       ),
     }),
-    columnHelper.accessor("category", {
-      id: "category",
+    columnHelper.accessor("inStock", {
+      id: "inStock",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
-          CATEGORY
+          Units in stock
         </p>
       ),
       cell: (info) => (
@@ -130,21 +114,42 @@ export default function ProductsTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor("revenue", {
-      id: "customer",
+    columnHelper.accessor("crossed_price", {
+      id: "crossed_price",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 dark:text-white">
+          CROSSED PRICE
+        </p>
+      ),
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700 dark:text-white">
+          {info.getValue()}
+        </p>
+      ),
+    }),
+    columnHelper.accessor("price", {
+      id: "price",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">PRICE</p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.row.getValue("currency")} {info.getValue()}
+          {info.getValue()}
         </p>
       ),
     }),
-    columnHelper.accessor("currency", {
-      id: "currency",
-      header: () => null,
-      cell: () => null,
+    columnHelper.accessor("discount", {
+      id: "discount",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 dark:text-white">
+          DISCOUNT
+        </p>
+      ),
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700 dark:text-white">
+          {info.getValue() <= 0 ? "No discount" : info.getValue()}
+        </p>
+      ),
     }),
     columnHelper.accessor("id", {
       id: "action",
@@ -155,14 +160,19 @@ export default function ProductsTable(props: { tableData: any }) {
       ),
       cell: (info: any) => (
         <div className="flex items-center">
-          <Product productId={info.getValue()} tableData={info.row.original} />
+          <Link
+            to={`/admin/products/${info.getValue()}`}
+            state={{ ...info.row.original }}
+            className="linear rounded-md border border-brand-500 text-brand-500 px-3 py-2 text-xs font-bold transition duration-200 active:border-brand-600 0 hover:bg-brand-500 hover:text-white"
+          >
+            view product details
+          </Link>
         </div>
       ),
     }),
   ]; // eslint-disable-next-line
-  const [data, setData] = React.useState(() => [...defaultData]);
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     state: {
       sorting,

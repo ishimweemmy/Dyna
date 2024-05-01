@@ -1,14 +1,29 @@
-import MainDashboard from "src/views/admin/default";
-import Profile from "src/views/admin/profile";
-
 // Icon Imports
 import { MdHome, MdPerson } from "react-icons/md";
-import Orders from "./views/admin/orders";
 import { FaJediOrder, FaProductHunt } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
-import Products from "./views/admin/products";
-import Categories from "./views/admin/categories";
-import Manufacturers from "./views/admin/manufacturers";
+import { lazy } from "react";
+// import MainDashboard from "";
+// import Profile from ;
+// import Orders from ;
+// import Products from ;
+// import Categories from ;
+// import Manufacturers from
+// import Product from ;
+// import ProductsWrapper from ;
+// import CreateProduct from ;
+
+const MainDashboard = lazy(() => import("src/views/admin/default"));
+const Profile = lazy(() => import("src/views/admin/profile"));
+const Orders = lazy(() => import("./views/admin/orders"));
+const Products = lazy(() => import("./views/admin/products"));
+const Categories = lazy(() => import("./views/admin/categories"));
+const Manufacturers = lazy(() => import("./views/admin/manufacturers"));
+const Product = lazy(() => import("./views/admin/products/components/Product"));
+const ProductsWrapper = lazy(() => import("./providers/ProductsWrapper"));
+const CreateProduct = lazy(
+  () => import("./views/admin/products/components/CreateProduct"),
+);
 
 const routes = [
   {
@@ -44,7 +59,21 @@ const routes = [
     layout: "/admin",
     path: "products",
     icon: <FaProductHunt className="h-5 w-5" />,
-    component: <Products />,
+    component: <ProductsWrapper />,
+    children: [
+      {
+        path: "",
+        component: <Products />,
+      },
+      {
+        path: "create",
+        component: <CreateProduct />,
+      },
+      {
+        path: ":productId",
+        component: <Product />,
+      },
+    ],
   },
   {
     name: "Orders",

@@ -62,20 +62,33 @@ type TSelectField = Pick<
   control: any;
 };
 
+type TIllustration = {
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: string;
+  updatedBy: string;
+  id: string;
+  color: string;
+  description: string;
+  file: File;
+  imageUrl: string;
+};
+
 type TProduct = {
   id: string;
   brand: string;
   company: string;
-  crossedPrice: number;
+  crossed_price: number;
   discount: number;
-  instock: number;
-  manufacturer: string;
+  inStock: number;
+  manufacturer: TManufacturer;
   name: string;
   price: number;
   status: "AVAILABLE" | "UNAVAILABLE";
-  subCategories: string[];
+  categories: TCategory[];
+  subCategories: TSubCategory[];
   warranty: string;
-  illustrations: File[];
+  illustrations: TIllustration[];
   reviews: [];
 };
 

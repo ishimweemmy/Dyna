@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "src/components/navbar";
 import Sidebar from "src/components/sidebar";
@@ -48,15 +48,27 @@ export default function Admin(props: { [x: string]: any }) {
   };
 
   const getRoutes = (routes: RoutesType[]): any => {
-    return routes.map((prop, key) => {
+    const allRoutes = routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
-          <Route path={`/${prop.path}`} element={prop.component} key={key} />
+          <Route path={`/${prop.path}`} element={prop.component} key={key}>
+            {prop.children &&
+              prop.children.map((child, key) => {
+                return (
+                  <Route
+                    path={`${child.path}`}
+                    element={child.component}
+                    key={key}
+                  />
+                );
+              })}
+          </Route>
         );
       } else {
         return null;
       }
     });
+    return allRoutes;
   };
 
   document.documentElement.dir = "ltr";
@@ -79,14 +91,16 @@ export default function Admin(props: { [x: string]: any }) {
               {...rest}
             />
             <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
-              <Routes>
-                {getRoutes(routes)}
+              <Suspense fallback={<h1>Loading.....</h1>}>
+                <Routes>
+                  {getRoutes(routes)}
 
-                <Route
-                  path="/"
-                  element={<Navigate to="/admin/default" replace />}
-                />
-              </Routes>
+                  <Route
+                    path="/"
+                    element={<Navigate to="/admin/default" replace />}
+                  />
+                </Routes>
+              </Suspense>
             </div>
             <div className="p-3">
               <Footer />
