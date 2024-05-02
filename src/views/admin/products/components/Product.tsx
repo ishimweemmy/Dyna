@@ -19,7 +19,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 const Product = () => {
   const [newProductId, setNewProductId] = useState("");
-  const { createProduct, loading, createIllustrations } = useProducts();
+  const { createProduct, loading, createIllustrations, deleteProduct } = useProducts();
   const { manufacturers } = useManufacturers();
   const { categories } = useCategories();
   const location = useLocation()
@@ -420,6 +420,14 @@ const Product = () => {
             register={register}
             disabled={loading}
           />
+            <button
+              className="w-1/2 self-center linear rounded-md ring-1 ring-brand-500 text-brand-500 p-3 text-xs font-bold transition duration-200 uppercase active:ring-brand-600 disabled:ring-brand-400 disabled:hover:ring-brand-400 flex items-center justify-center gap-3"
+              disabled={loading}
+              type="button"
+              onClick={() => deleteProduct(productData.id)}
+            >
+              Delete this product
+            </button>
           <div className="w-full flex items-center justify-center gap-4">
             <button
               className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
@@ -427,13 +435,13 @@ const Product = () => {
               type="button"
               onClick={handleCancel}
             >
-              cancel
+              Reset
             </button>
             <button
               className="w-full self-center linear rounded-md bg-brand-500 text-white p-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
               disabled={loading}
             >
-              Next
+              Update Product
             </button>
           </div>
         </motion.form>

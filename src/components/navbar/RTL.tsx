@@ -2,7 +2,6 @@ import React from "react";
 import Dropdown from "src/components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import navbarimage from "src/assets/img/layout/Navbar.png";
 import { BsArrowBarUp } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
@@ -127,14 +126,6 @@ const Navbar = (props: {
           }
           children={
             <div className="flex w-[350px] flex-col gap-2 rounded-[20px] bg-white p-4 shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
-              <div
-                style={{
-                  backgroundImage: `url(${navbarimage})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                }}
-                className="mb-2 aspect-video w-full rounded-lg"
-              />
               <a
                 target="blank"
                 href="https://horizon-ui.com/pro?ref=live-free-tailwind-react"

@@ -6,12 +6,14 @@ import { setProducts } from "@/features/product/productSlice";
 import { z } from "zod";
 import { CreateProductFormSchema } from "@/types/form-schemas";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const useProducts = () => {
   const { loading, withLoading } = useLoading();
   const products = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
   const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate()
 
   const getProducts = () => {
     withLoading(async () => {
@@ -50,14 +52,13 @@ const useProducts = () => {
     });
   };
 
-  const deleteProduct = (id: string, onClose: () => void) => {
+  const deleteProduct = (id: string) => {
     withLoading(async () => {
       const response = await productService.removeProduct(id);
 
       if (response.status == 200) {
         toast.success("product deleted successfully!");
-        getProducts();
-        onClose();
+        navigate("/admin/products")
       }
     });
   };
@@ -71,6 +72,7 @@ const useProducts = () => {
 
       if (response.status == 200) {
         toast.success("successfully created a new product");
+        navigate("/admin/products")
       }
     });
   };

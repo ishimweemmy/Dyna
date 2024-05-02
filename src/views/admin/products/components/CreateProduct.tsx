@@ -24,7 +24,7 @@ const CreateProduct = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     reset,
     control,
     watch,
@@ -212,11 +212,12 @@ const CreateProduct = () => {
               );
             })}
           </div>
+          {controlledIllFields.length <= 0 && !isDirty && <p className="my-60 text-gray-400">No Images currently. click the button below to add them.</p>}
 
           <div className="w-full flex items-center justify-center gap-4">
             <button
               type="button"
-              className="w-1/2 linear rounded-md border border-brand-500 text-brand-500 px-3 py-2 text-xs font-bold transition duration-200 uppercase active:border-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+              className="w-1/2 linear rounded-md border border-brand-500 text-brand-500 px-3 py-3 text-xs font-bold transition duration-200 uppercase active:border-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
               onClick={() => {
                 const emptyIllustration = watchIllustrations.find(
                   (illustration) =>
@@ -245,7 +246,7 @@ const CreateProduct = () => {
               Add product image
             </button>
             <button
-              className="w-1/2 linear rounded-md bg-brand-500 text-white px-3 py-2 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
+              className="w-1/2 linear rounded-md bg-brand-500 text-white px-3 py-3 text-xs font-bold transition duration-200 uppercase active:bg-brand-600 disabled:bg-brand-400 disabled:hover:bg-brand-400"
               disabled={loading || controlledIllFields.length <= 0}
               type="submit"
             >

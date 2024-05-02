@@ -37,6 +37,7 @@ export class ProductService {
       status,
       subCategories,
       warranty,
+      categories
     } = data;
     return await this.instance.post(
       "/create",
@@ -50,6 +51,7 @@ export class ProductService {
         name,
         price,
         status,
+        category: categories,
         sub_category: subCategories,
         warranty,
       },
@@ -60,7 +62,7 @@ export class ProductService {
   };
 
   createProductIllustration = async (data: FormData, productId: string) => {
-    return await this.instance.post(`/illustration/${productId}`, data, {
+    return await this.instance.post(`/illustration/add/${productId}`, data, {
       headers: getAuthorizationHeader(),
     });
   };
@@ -72,7 +74,10 @@ export class ProductService {
   };
 
   removeProduct = async (id: string) => {
-    return await this.instance.delete(`/delete/${id}`, {
+    return await this.instance.delete(`/delete`, {
+      params: {
+        id
+      },
       headers: getAuthorizationHeader(),
     });
   };
